@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EF73BCB62117FD48001BEBE1"
-               BuildableName = "DayScheduleView.framework"
-               BlueprintName = "iOS"
+               BlueprintIdentifier = "EF73BCEB2118004C001BEBE1"
+               BuildableName = "iOS-Static.framework"
+               BlueprintName = "iOS-Static"
                ReferencedContainer = "container:DayScheduleView.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,26 +28,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EF73BCBF2117FD48001BEBE1"
-               BuildableName = "iOSTests.xctest"
-               BlueprintName = "iOSTests"
-               ReferencedContainer = "container:DayScheduleView.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EF73BCB62117FD48001BEBE1"
-            BuildableName = "DayScheduleView.framework"
-            BlueprintName = "iOS"
-            ReferencedContainer = "container:DayScheduleView.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -64,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EF73BCB62117FD48001BEBE1"
-            BuildableName = "DayScheduleView.framework"
-            BlueprintName = "iOS"
+            BlueprintIdentifier = "EF73BCEB2118004C001BEBE1"
+            BuildableName = "iOS-Static.framework"
+            BlueprintName = "iOS-Static"
             ReferencedContainer = "container:DayScheduleView.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -82,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EF73BCB62117FD48001BEBE1"
-            BuildableName = "DayScheduleView.framework"
-            BlueprintName = "iOS"
+            BlueprintIdentifier = "EF73BCEB2118004C001BEBE1"
+            BuildableName = "iOS-Static.framework"
+            BlueprintName = "iOS-Static"
             ReferencedContainer = "container:DayScheduleView.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
