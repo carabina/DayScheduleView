@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
+   <Group
+      location = "container:Playgrounds"
+      name = "Playgrounds">
+      <FileRef
+         location = "group:Test.playground">
+      </FileRef>
+   </Group>
    <FileRef
       location = "group:DayScheduleView/DayScheduleView.xcodeproj">
    </FileRef>

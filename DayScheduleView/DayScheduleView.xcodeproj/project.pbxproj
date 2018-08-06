@@ -13,6 +13,8 @@
 		EF73BCEF2118004C001BEBE1 /* DayScheduleView.h in Headers */ = {isa = PBXBuildFile; fileRef = EF73BCBA2117FD48001BEBE1 /* DayScheduleView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EF73BCF8211807EF001BEBE1 /* DayScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF73BCF7211807EF001BEBE1 /* DayScheduleView.swift */; };
 		EF73BCF9211807EF001BEBE1 /* DayScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF73BCF7211807EF001BEBE1 /* DayScheduleView.swift */; };
+		EF73BCFC21180ED1001BEBE1 /* TimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF73BCFB21180ED1001BEBE1 /* TimeView.swift */; };
+		EF73BCFD21180ED1001BEBE1 /* TimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF73BCFB21180ED1001BEBE1 /* TimeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +37,7 @@
 		EF73BCF42118004C001BEBE1 /* DayScheduleView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DayScheduleView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF73BCF52118004C001BEBE1 /* iOS copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "iOS copy-Info.plist"; path = "/Users/michaelcollins/Projects/nakedsoftware/DayScheduleView/DayScheduleView/iOS copy-Info.plist"; sourceTree = "<absolute>"; };
 		EF73BCF7211807EF001BEBE1 /* DayScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayScheduleView.swift; sourceTree = "<group>"; };
+		EF73BCFB21180ED1001BEBE1 /* TimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				EF73BCF7211807EF001BEBE1 /* DayScheduleView.swift */,
+				EF73BCFB21180ED1001BEBE1 /* TimeView.swift */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -257,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF73BCF8211807EF001BEBE1 /* DayScheduleView.swift in Sources */,
+				EF73BCFC21180ED1001BEBE1 /* TimeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,6 +278,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF73BCF9211807EF001BEBE1 /* DayScheduleView.swift in Sources */,
+				EF73BCFD21180ED1001BEBE1 /* TimeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
