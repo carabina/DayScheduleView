@@ -42,6 +42,7 @@ open class DayScheduleView: UIView {
   private func setupScrollView() {
     scrollView.translatesAutoresizingMaskIntoConstraints = false
     scrollView.contentSize = CGSize(width: bounds.width, height: 1920.0)
+    scrollView.backgroundColor = DayScheduleViewStyleKit.backgroundColor
     addSubview(scrollView)
     scrollView.topAnchor
       .constraint(equalTo: safeAreaLayoutGuide.topAnchor)

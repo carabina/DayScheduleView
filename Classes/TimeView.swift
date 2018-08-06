@@ -24,5 +24,6 @@ final class TimeView: UIView {
   }
 
   override func draw(_ rect: CGRect) {
+    DayScheduleViewStyleKit.drawTimeView(frame: frame, resizing: .stretch)
   }
 }
