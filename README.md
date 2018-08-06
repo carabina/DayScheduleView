@@ -12,6 +12,11 @@ displaying calendar events in the schedule.
 
 ## Installation
 
+Day Schedule View is compatible with [Carthage](https://github.com/Carthage/Cartage)
+or [CocoaPods](https://cocoapods.org).
+
+### Carthage Installation
+
 Day Schedule View is installable using [Carthage](https://github.com/Carthage/Carthage).
 To use Day Schedule View in your own project, add the following line to your
 `Cartfile`:
@@ -28,3 +33,14 @@ View and make the framework available for your application.
 Day Schedule View is available as either a dynamically-linked framework for
 iOS applications, or as a statically linked framework. We recommend using the
 statically-linked framework for performance reasons.
+
+### CocoaPods Installation
+
+To use Day Schedule View in your own project, add the following line to your
+`Podfile` for the target that you want to link Day Schedule View into:
+
+    pod 'DayScheduleView'
+
+Then install the source code into your application or framework:
+
+    pod install
