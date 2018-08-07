@@ -20,10 +20,10 @@
 
 final class TimeView: UIView {
   override var intrinsicContentSize: CGSize {
-    return CGSize(width: UIViewNoIntrinsicMetric, height: 1920.0)
+    return CGSize(width: UIViewNoIntrinsicMetric, height: 1989.0)
   }
 
   override func draw(_ rect: CGRect) {
-    DayScheduleViewStyleKit.drawTimeView(frame: frame, resizing: .stretch)
+    DayScheduleViewStyleKit.drawTimeView(frame: frame)
   }
 }

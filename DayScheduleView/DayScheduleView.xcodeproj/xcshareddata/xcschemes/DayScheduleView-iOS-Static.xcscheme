@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EF73BCEB2118004C001BEBE1"
-               BuildableName = "iOS-Static.framework"
+               BuildableName = "DayScheduleView.framework"
                BlueprintName = "iOS-Static"
                ReferencedContainer = "container:DayScheduleView.xcodeproj">
             </BuildableReference>
@@ -46,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EF73BCEB2118004C001BEBE1"
-            BuildableName = "iOS-Static.framework"
+            BuildableName = "DayScheduleView.framework"
             BlueprintName = "iOS-Static"
             ReferencedContainer = "container:DayScheduleView.xcodeproj">
          </BuildableReference>
@@ -64,7 +64,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EF73BCEB2118004C001BEBE1"
-            BuildableName = "iOS-Static.framework"
+            BuildableName = "DayScheduleView.framework"
             BlueprintName = "iOS-Static"
             ReferencedContainer = "container:DayScheduleView.xcodeproj">
          </BuildableReference>
