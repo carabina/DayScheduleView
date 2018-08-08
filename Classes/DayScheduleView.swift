@@ -18,9 +18,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+@IBDesignable
 open class DayScheduleView: UIView {
   private let scrollView = UIScrollView()
   private let timeView = TimeView()
+
+  public weak var dataSource: DayScheduleViewDataSource?
+  public weak var delegate: DayScheduleViewDelegate?
 
   public override init(frame: CGRect) {
     super.init(frame: frame)
@@ -31,6 +35,11 @@ open class DayScheduleView: UIView {
   public required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
 
+    setupView()
+  }
+
+  open override func prepareForInterfaceBuilder() {
+    super.prepareForInterfaceBuilder()
     setupView()
   }
 

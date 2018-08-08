@@ -17,6 +17,10 @@
 		EF73BCFD21180ED1001BEBE1 /* TimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF73BCFB21180ED1001BEBE1 /* TimeView.swift */; };
 		EF73BCFF21188C4B001BEBE1 /* DayScheduleViewStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF73BCFE21188C4B001BEBE1 /* DayScheduleViewStyleKit.swift */; };
 		EF73BD0021188C4B001BEBE1 /* DayScheduleViewStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF73BCFE21188C4B001BEBE1 /* DayScheduleViewStyleKit.swift */; };
+		EFAFB990211B7CE2004328F7 /* DayScheduleViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAFB98F211B7CE2004328F7 /* DayScheduleViewDelegate.swift */; };
+		EFAFB992211B7D39004328F7 /* DayScheduleViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAFB991211B7D39004328F7 /* DayScheduleViewDataSource.swift */; };
+		EFAFB993211B7D39004328F7 /* DayScheduleViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAFB991211B7D39004328F7 /* DayScheduleViewDataSource.swift */; };
+		EFAFB994211B7D76004328F7 /* DayScheduleViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAFB98F211B7CE2004328F7 /* DayScheduleViewDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +45,8 @@
 		EF73BCF7211807EF001BEBE1 /* DayScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayScheduleView.swift; sourceTree = "<group>"; };
 		EF73BCFB21180ED1001BEBE1 /* TimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeView.swift; sourceTree = "<group>"; };
 		EF73BCFE21188C4B001BEBE1 /* DayScheduleViewStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayScheduleViewStyleKit.swift; sourceTree = "<group>"; };
+		EFAFB98F211B7CE2004328F7 /* DayScheduleViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayScheduleViewDelegate.swift; sourceTree = "<group>"; };
+		EFAFB991211B7D39004328F7 /* DayScheduleViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayScheduleViewDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +120,8 @@
 				EF73BCFE21188C4B001BEBE1 /* DayScheduleViewStyleKit.swift */,
 				EF73BCF7211807EF001BEBE1 /* DayScheduleView.swift */,
 				EF73BCFB21180ED1001BEBE1 /* TimeView.swift */,
+				EFAFB98F211B7CE2004328F7 /* DayScheduleViewDelegate.swift */,
+				EFAFB991211B7D39004328F7 /* DayScheduleViewDataSource.swift */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -265,7 +273,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF73BCF8211807EF001BEBE1 /* DayScheduleView.swift in Sources */,
+				EFAFB990211B7CE2004328F7 /* DayScheduleViewDelegate.swift in Sources */,
 				EF73BCFC21180ED1001BEBE1 /* TimeView.swift in Sources */,
+				EFAFB992211B7D39004328F7 /* DayScheduleViewDataSource.swift in Sources */,
 				EF73BCFF21188C4B001BEBE1 /* DayScheduleViewStyleKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,6 +295,8 @@
 				EF73BCF9211807EF001BEBE1 /* DayScheduleView.swift in Sources */,
 				EF73BCFD21180ED1001BEBE1 /* TimeView.swift in Sources */,
 				EF73BD0021188C4B001BEBE1 /* DayScheduleViewStyleKit.swift in Sources */,
+				EFAFB994211B7D76004328F7 /* DayScheduleViewDelegate.swift in Sources */,
+				EFAFB993211B7D39004328F7 /* DayScheduleViewDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
