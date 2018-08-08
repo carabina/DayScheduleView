@@ -343,8 +343,6 @@ public class DayScheduleViewStyleKit : NSObject {
     @objc dynamic public class func drawCurrentTime(frame: CGRect = CGRect(x: 0, y: 0, width: 384, height: 21), now: String = "10:20 AM") {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
-        // This non-generic function dramatically improves compilation times of complex expressions.
-        func fastFloor(_ x: CGFloat) -> CGFloat { return floor(x) }
 
         //// Color Declarations
         let currentTimeColor = UIColor(red: 0.991, green: 0.000, blue: 0.000, alpha: 1.000)
@@ -373,7 +371,7 @@ public class DayScheduleViewStyleKit : NSObject {
 
 
         //// Oval Drawing
-        let ovalPath = UIBezierPath(ovalIn: CGRect(x: frame.minX + fastFloor((frame.width - 319) * 0.92308 + 0.5), y: frame.minY + 8, width: frame.width - 319 - fastFloor((frame.width - 319) * 0.92308 + 0.5), height: 5))
+        let ovalPath = UIBezierPath(ovalIn: CGRect(x: frame.minX + 60, y: frame.minY + 8, width: 5, height: 5))
         currentTimeColor.setFill()
         ovalPath.fill()
     }
