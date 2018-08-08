@@ -24,6 +24,41 @@ final class TimeView: UIView {
   }
 
   override func draw(_ rect: CGRect) {
+    let context = UIGraphicsGetCurrentContext()!
+
     DayScheduleViewStyleKit.drawTimeView(frame: frame)
+
+    let now = Date()
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateStyle = .none
+    dateFormatter.timeStyle = .short
+    let time = dateFormatter.string(from: now)
+
+    let dateComponents =
+      Calendar.current.dateComponents([.hour, .minute], from: now)
+    var y: CGFloat = CGFloat(dateComponents.hour!) * 82.0
+    if (30 == dateComponents.minute!) {
+      y += 41.0
+    } else if 0 < dateComponents.minute! && 30 > dateComponents.minute! {
+      y += (40.0 * (CGFloat(dateComponents.minute!) / 30.0))
+    } else if 30 < dateComponents.minute! {
+      y += 41.0 + (40.0 * (CGFloat(dateComponents.minute! - 30) / 30.0))
+    }
+    let currentTimeFrame = CGRect(x: 0, y: y, width: frame.width, height: 21.0)
+
+    context.saveGState()
+    if 10 > dateComponents.minute! {
+      let whiteFrame = CGRect(x: 0, y: y - 20.0, width: 50.0, height: 41.0)
+      DayScheduleViewStyleKit.backgroundColor.setFill()
+      context.fill(whiteFrame)
+    } else if 50 <= dateComponents.minute! {
+      let whiteFrame = CGRect(x: 0, y: y, width: 50.0, height: 41.0)
+      DayScheduleViewStyleKit.backgroundColor.setFill()
+      context.fill(whiteFrame)
+    }
+
+    context.restoreGState()
+
+    DayScheduleViewStyleKit.drawCurrentTime(frame: currentTimeFrame, now: time)
   }
 }
