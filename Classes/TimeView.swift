@@ -36,14 +36,7 @@ final class TimeView: UIView {
 
     let dateComponents =
       Calendar.current.dateComponents([.hour, .minute], from: now)
-    var y: CGFloat = CGFloat(dateComponents.hour!) * 82.0
-    if (30 == dateComponents.minute!) {
-      y += 41.0
-    } else if 0 < dateComponents.minute! && 30 > dateComponents.minute! {
-      y += (40.0 * (CGFloat(dateComponents.minute!) / 30.0))
-    } else if 30 < dateComponents.minute! {
-      y += 41.0 + (40.0 * (CGFloat(dateComponents.minute! - 30) / 30.0))
-    }
+    let y = offset(for: now)
     let currentTimeFrame = CGRect(x: 0, y: y, width: frame.width, height: 21.0)
 
     context.saveGState()
@@ -60,5 +53,24 @@ final class TimeView: UIView {
     context.restoreGState()
 
     DayScheduleViewStyleKit.drawCurrentTime(frame: currentTimeFrame, now: time)
+  }
+
+  func currentTimeOffset() -> CGFloat {
+    return offset(for: Date())
+  }
+
+  func offset(for time: Date) -> CGFloat {
+    let dateComponents =
+      Calendar.current.dateComponents([.hour, .minute], from: time)
+    var y: CGFloat = CGFloat(dateComponents.hour!) * 82.0
+    if (30 == dateComponents.minute!) {
+      y += 41.0
+    } else if 0 < dateComponents.minute! && 30 > dateComponents.minute! {
+      y += (40.0 * (CGFloat(dateComponents.minute!) / 30.0))
+    } else if 30 < dateComponents.minute! {
+      y += 41.0 + (40.0 * (CGFloat(dateComponents.minute! - 30) / 30.0))
+    }
+
+    return y
   }
 }

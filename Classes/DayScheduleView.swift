@@ -34,6 +34,18 @@ open class DayScheduleView: UIView {
     setupView()
   }
 
+  public func scrollToCurrentTime() {
+    let offset = timeView.currentTimeOffset()
+    print("offset = \(offset)")
+    let rect = CGRect(
+      x: 0,
+      y: offset - 10.0,
+      width: frame.width,
+      height: scrollView.bounds.height / 2.0)
+    print("current time rect = \(rect)")
+    scrollView.scrollRectToVisible(rect, animated: true)
+  }
+
   private func setupView() {
     setupScrollView()
     setupTimeView()
