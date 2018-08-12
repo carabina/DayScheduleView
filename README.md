@@ -4,11 +4,12 @@
 
 ## Introduction
 
-This repository implements a day schedule view control for iOS applications.
-The day schedule view allows the user to view a 24-hour day and all of the
-appointments that have been scheduled on that day. The day schedule view
-supports [EventKit](https://developer.apple.com/documentation/eventkit) for
-displaying calendar events in the schedule.
+DayScheduleView is a custom view for iOS applications. DayScheduleView will
+present a single day in a scrollable 24-hour list, divided into 30 minute
+periods. DayScheduleView integrates with [EventKit](https://developer.apple.com/documentation/eventkit)
+and custom appointment or event management code and displays events within
+the day at the time that they occur. DayScheduleView supports interaction
+between the user and the appointments that are displayed in the schedule.
 
 ## Installation
 

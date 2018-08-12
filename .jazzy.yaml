@@ -1,0 +1,12 @@
+xcodebuild_arguments: 
+  - -workspace
+  - DayScheduleView.xcworkspace
+  - -scheme
+  - DayScheduleView-iOS
+exclude:
+  - Classes/DayScheduleViewStyleKit.swift
+author: Naked Software, LLC
+author_url: https://www.naked.software
+module_version: 0.1.0
+copyright: Copyright 2018 Naked Software, LLC
+github_url: https://github.com/nakedsoftware/DayScheduleView
