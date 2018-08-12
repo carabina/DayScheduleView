@@ -18,27 +18,31 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-/// Protocol that is implemented by an object that will act as a data source
-/// for a `DayScheduleView` view. `DayScheduleView` will use the data source
-/// object to provide appointments that will be displayed within the schedule.
+/// The `Appointment` protocol defines the shape of an appointment or event that
+/// is displayed in the `DayScheduleView` view. The `Appointment` protocol
+/// exposes the information that the `DayScheduleView` view needs in order to
+/// present the appointment in the schedule.
 ///
 /// - since: 1.0
-@objc public protocol DayScheduleViewDataSource: AnyObject {
-  /// Returns the list of appointments to display in the schedule view for the
-  /// specified 24-hour period.
-  ///
-  /// - parameters:
-  ///   - dayScheduleView: The `DayScheduleView` that is requesting the
-  ///     appointments
-  ///   - startDate: The start of the day that appointments are being requested
-  ///     for
-  ///   - endDate: The end of the day that appointments are being requested for
-  /// - returns: An optional array of `Appointment` values. If no appointments
-  ///   are found for the requested day, then either `nil` or an empty array
-  ///   may be returned.
-  func dayScheduleView(
-    _ dayScheduleView: DayScheduleView,
-    appointmentsWithStart startDate: Date,
-    end endDate: Date
-    ) -> [Appointment]?
+@objc public protocol Appointment: AnyObject {
+  /// The color to use when displaying the appointment in the schedule.
+  var color: UIColor { get }
+
+  /// The title of the appointment.
+  var title: String { get }
+
+  /// An optional location that describes where the appointment is occurring.
+  var location: String? { get }
+
+  /// The date and time when the appointment begins.
+  var startDate: Date { get }
+
+  /// The date and time when the appointment ends.
+  /// The end date is exclusive of the time of the appointment. For example,
+  /// an end time of 11:00 means that the appoitment ends at 10:59.
+  var endDate: Date { get }
+
+  /// Indicates whether the appointment is scheduled for the complete day. If
+  /// `true`, the appointment is all day.
+  var isAllDay: Bool { get }
 }

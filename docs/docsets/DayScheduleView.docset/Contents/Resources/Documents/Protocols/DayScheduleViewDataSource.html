@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>DayScheduleViewDataSource Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Protocol/DayScheduleViewDataSource" class="dashAnchor"></a>
+    <a title="DayScheduleViewDataSource Protocol Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">DayScheduleView Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/nakedsoftware/DayScheduleView"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">DayScheduleView Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        DayScheduleViewDataSource Protocol Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/DayScheduleView.html">DayScheduleView</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/Appointment.html">Appointment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DayScheduleViewDataSource.html">DayScheduleViewDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols.html#/c:@M@DayScheduleView@objc(pl)DayScheduleViewDelegate">DayScheduleViewDelegate</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>DayScheduleViewDataSource</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">DayScheduleViewDataSource</span> <span class="p">:</span> <span class="kt">AnyObject</span></code></pre>
+
+                </div>
+              </div>
+            <p>Protocol that is implemented by an object that will act as a data source
+for a <code><a href="../Classes/DayScheduleView.html">DayScheduleView</a></code> view. <code><a href="../Classes/DayScheduleView.html">DayScheduleView</a></code> will use the data source
+object to provide appointments that will be displayed within the schedule.</p>
+<div class="aside aside-since">
+    <p class="aside-title">Since</p>
+    1.0
+
+</div>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@DayScheduleView@objc(pl)DayScheduleViewDataSource(im)dayScheduleView:appointmentsWithStart:end:"></a>
+                    <a name="//apple_ref/swift/Method/dayScheduleView(_:appointmentsWithStart:end:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@DayScheduleView@objc(pl)DayScheduleViewDataSource(im)dayScheduleView:appointmentsWithStart:end:">dayScheduleView(_:appointmentsWithStart:end:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the list of appointments to display in the schedule view for the
+specified 24-hour period.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">dayScheduleView</span><span class="p">(</span><span class="n">_</span> <span class="nv">dayScheduleView</span><span class="p">:</span> <span class="kt"><a href="../Classes/DayScheduleView.html">DayScheduleView</a></span><span class="p">,</span> <span class="n">appointmentsWithStart</span> <span class="nv">startDate</span><span class="p">:</span> <span class="kt">Date</span><span class="p">,</span> <span class="n">end</span> <span class="nv">endDate</span><span class="p">:</span> <span class="kt">Date</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Protocols/Appointment.html">Appointment</a></span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>dayScheduleView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Classes/DayScheduleView.html">DayScheduleView</a></code> that is requesting the
+appointments</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>startDate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The start of the day that appointments are being requested
+for</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>endDate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The end of the day that appointments are being requested for</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An optional array of <code><a href="../Protocols/Appointment.html">Appointment</a></code> values. If no appointments
+are found for the requested day, then either <code>nil</code> or an empty array
+may be returned.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>Copyright 2018 Naked Software, LLC</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

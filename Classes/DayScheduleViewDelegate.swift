@@ -18,5 +18,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+/// Delegate that is invoked by `DayScheduleView` to perform actions, typically
+/// as the result of user interaction with the appointments or the schedule.
+///
+/// - since: 1.0
 @objc public protocol DayScheduleViewDelegate: AnyObject {
 }

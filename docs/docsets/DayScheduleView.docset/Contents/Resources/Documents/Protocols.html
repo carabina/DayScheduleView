@@ -14,7 +14,7 @@
     <a title="Protocols  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">DayScheduleView Docs</a> (77% documented)</p>
+        <p><a href="index.html">DayScheduleView Docs</a> (100% documented)</p>
         <p class="header-right"><a href="https://github.com/nakedsoftware/DayScheduleView"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -40,7 +40,10 @@
             <a href="Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Protocols.html#/c:@M@DayScheduleView@objc(pl)DayScheduleViewDataSource">DayScheduleViewDataSource</a>
+                <a href="Protocols/Appointment.html">Appointment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/DayScheduleViewDataSource.html">DayScheduleViewDataSource</a>
               </li>
               <li class="nav-group-task">
                 <a href="Protocols.html#/c:@M@DayScheduleView@objc(pl)DayScheduleViewDelegate">DayScheduleViewDelegate</a>
@@ -62,6 +65,47 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/c:@M@DayScheduleView@objc(pl)Appointment"></a>
+                    <a name="//apple_ref/swift/Protocol/Appointment" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@DayScheduleView@objc(pl)Appointment">Appointment</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The <code>Appointment</code> protocol defines the shape of an appointment or event that
+is displayed in the <code><a href="Classes/DayScheduleView.html">DayScheduleView</a></code> view. The <code>Appointment</code> protocol
+exposes the information that the <code><a href="Classes/DayScheduleView.html">DayScheduleView</a></code> view needs in order to
+present the appointment in the schedule.</p>
+<div class="aside aside-since">
+    <p class="aside-title">Since</p>
+    1.0
+
+</div>
+
+                        <a href="Protocols/Appointment.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Appointment</span> <span class="p">:</span> <span class="kt">AnyObject</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/c:@M@DayScheduleView@objc(pl)DayScheduleViewDataSource"></a>
                     <a name="//apple_ref/swift/Protocol/DayScheduleViewDataSource" class="dashAnchor"></a>
                     <a class="token" href="#/c:@M@DayScheduleView@objc(pl)DayScheduleViewDataSource">DayScheduleViewDataSource</a>
@@ -72,8 +116,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Protocol that is implemented by an object that will act as a data source
+for a <code><a href="Classes/DayScheduleView.html">DayScheduleView</a></code> view. <code><a href="Classes/DayScheduleView.html">DayScheduleView</a></code> will use the data source
+object to provide appointments that will be displayed within the schedule.</p>
+<div class="aside aside-since">
+    <p class="aside-title">Since</p>
+    1.0
 
+</div>
+
+                        <a href="Protocols/DayScheduleViewDataSource.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -104,7 +156,13 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Delegate that is invoked by <code><a href="Classes/DayScheduleView.html">DayScheduleView</a></code> to perform actions, typically
+as the result of user interaction with the appointments or the schedule.</p>
+<div class="aside aside-since">
+    <p class="aside-title">Since</p>
+    1.0
+
+</div>
 
                       </div>
                       <div class="declaration">
