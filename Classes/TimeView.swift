@@ -19,6 +19,26 @@
 // SOFTWARE.
 
 final class TimeView: UIView {
+  private var timer: Timer?
+  private var currentMinute: Int = -1
+  private var currentTimeFrame = CGRect.zero
+
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+
+    scheduleTimer()
+  }
+
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+
+    scheduleTimer()
+  }
+
+  deinit {
+    timer?.invalidate()
+  }
+
   override var intrinsicContentSize: CGSize {
     return CGSize(width: UIViewNoIntrinsicMetric, height: 1989.0)
   }
@@ -37,7 +57,7 @@ final class TimeView: UIView {
     let dateComponents =
       Calendar.current.dateComponents([.hour, .minute], from: now)
     let y = offset(for: now)
-    let currentTimeFrame = CGRect(x: 0, y: y, width: frame.width, height: 21.0)
+    currentTimeFrame = CGRect(x: 0, y: y, width: frame.width, height: 21.0)
 
     context.saveGState()
     if 10 > dateComponents.minute! {
@@ -72,5 +92,20 @@ final class TimeView: UIView {
     }
 
     return y
+  }
+
+  private func scheduleTimer() {
+    timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { _ in
+      let dateComponents = Calendar.current.dateComponents([.minute], from: Date())
+      if self.currentMinute < dateComponents.minute! {
+        let rect = CGRect(
+          x: self.currentTimeFrame.origin.x,
+          y: self.currentTimeFrame.origin.y - 20,
+          width: self.currentTimeFrame.size.width,
+          height: self.currentTimeFrame.height + 40
+        )
+        self.setNeedsDisplay(rect)
+      }
+    })
   }
 }
