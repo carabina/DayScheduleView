@@ -40,7 +40,7 @@ final class TimeView: UIView {
   }
 
   override var intrinsicContentSize: CGSize {
-    return CGSize(width: UIViewNoIntrinsicMetric, height: 1989.0)
+    return CGSize(width: UIViewNoIntrinsicMetric, height: 2085.0)
   }
 
   override func draw(_ rect: CGRect) {
@@ -82,13 +82,13 @@ final class TimeView: UIView {
   func offset(for time: Date) -> CGFloat {
     let dateComponents =
       Calendar.current.dateComponents([.hour, .minute], from: time)
-    var y: CGFloat = CGFloat(dateComponents.hour!) * 82.0
+    var y: CGFloat = CGFloat(dateComponents.hour!) * 86.0
     if (30 == dateComponents.minute!) {
-      y += 41.0
+      y += 43.0
     } else if 0 < dateComponents.minute! && 30 > dateComponents.minute! {
-      y += (40.0 * (CGFloat(dateComponents.minute!) / 30.0))
+      y += (40.0 * (CGFloat(dateComponents.minute!) / 30.0)) + 1
     } else if 30 < dateComponents.minute! {
-      y += 41.0 + (40.0 * (CGFloat(dateComponents.minute! - 30) / 30.0))
+      y += 44.0 + (40.0 * (CGFloat(dateComponents.minute! - 30) / 30.0))
     }
 
     return y
