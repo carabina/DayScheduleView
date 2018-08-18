@@ -18,31 +18,55 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-final class TimeView: UIView {
-  private let timeLayer = CALayer()
-  private let timeLayerDelegate = TimeLayerDelegate()
+import UIKit
+import EventKit
 
-  override init(frame: CGRect) {
-    super.init(frame: frame)
+import DayScheduleView
 
-    setupView()
+class ViewController: UIViewController {
+  private var eventStore: EKEventStore!
+  private var eventStoreDataSource: EKEventStoreDataSource?
+
+  var dayScheduleView: DayScheduleView {
+    return view as! DayScheduleView
   }
 
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
+  override func viewDidLoad() {
+    super.viewDidLoad()
 
-    setupView()
+    eventStore = EKEventStore()
+    addEventStoreDataSource()
   }
 
-  override func layoutSubviews() {
-    timeLayer.frame = layer.bounds
-    timeLayer.setNeedsDisplay()
+  private func addEventStoreDataSource() {
+    switch EKEventStore.authorizationStatus(for: .event) {
+    case .authorized:
+      doAddEventStoreDataSource()
+
+    case .denied, .restricted:
+      break
+
+    case .notDetermined:
+      requestCalendarAuthorization()
+    }
   }
 
-  private func setupView() {
-    timeLayer.delegate = timeLayerDelegate
-    timeLayer.frame = layer.bounds
-    layer.addSublayer(timeLayer)
-    timeLayer.setNeedsDisplay()
+  private func requestCalendarAuthorization() {
+    eventStore.requestAccess(to: .event) { granted, error in
+      if let error = error {
+        print("ERROR: \(error)")
+        return
+      }
+
+      if granted {
+        self.doAddEventStoreDataSource()
+      }
+    }
+  }
+
+  private func doAddEventStoreDataSource() {
+    eventStoreDataSource = EKEventStoreDataSource(eventStore: eventStore)
+//    dayScheduleView.dataSource = eventStoreDataSource
   }
 }
+

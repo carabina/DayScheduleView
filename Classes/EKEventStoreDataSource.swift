@@ -18,31 +18,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-final class TimeView: UIView {
-  private let timeLayer = CALayer()
-  private let timeLayerDelegate = TimeLayerDelegate()
+import EventKit
 
-  override init(frame: CGRect) {
-    super.init(frame: frame)
+open class EKEventStoreDataSource: DayScheduleViewDataSource {
+  private let eventStore: EKEventStore
+  private let calendars: [EKCalendar]?
 
-    setupView()
+  public init(eventStore: EKEventStore, calendars: [EKCalendar]? = nil) {
+    self.eventStore = eventStore
+    self.calendars = calendars
   }
 
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-
-    setupView()
-  }
-
-  override func layoutSubviews() {
-    timeLayer.frame = layer.bounds
-    timeLayer.setNeedsDisplay()
-  }
-
-  private func setupView() {
-    timeLayer.delegate = timeLayerDelegate
-    timeLayer.frame = layer.bounds
-    layer.addSublayer(timeLayer)
-    timeLayer.setNeedsDisplay()
+  public func dayScheduleView(
+    _ dayScheduleView: DayScheduleView,
+    appointmentsWithStart startDate: Date,
+    end endDate: Date) -> [Appointment]? {
+    let predicate = eventStore.predicateForEvents(
+      withStart: startDate,
+      end: endDate,
+      calendars: calendars
+    )
+    return eventStore.events(matching: predicate)
   }
 }

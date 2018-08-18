@@ -18,31 +18,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-final class TimeView: UIView {
-  private let timeLayer = CALayer()
-  private let timeLayerDelegate = TimeLayerDelegate()
+import EventKit
 
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-
-    setupView()
-  }
-
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-
-    setupView()
-  }
-
-  override func layoutSubviews() {
-    timeLayer.frame = layer.bounds
-    timeLayer.setNeedsDisplay()
-  }
-
-  private func setupView() {
-    timeLayer.delegate = timeLayerDelegate
-    timeLayer.frame = layer.bounds
-    layer.addSublayer(timeLayer)
-    timeLayer.setNeedsDisplay()
+extension EKEvent: Appointment {
+  public var color: UIColor {
+    return UIColor(cgColor: calendar.cgColor)
   }
 }

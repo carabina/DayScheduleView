@@ -18,31 +18,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-final class TimeView: UIView {
-  private let timeLayer = CALayer()
-  private let timeLayerDelegate = TimeLayerDelegate()
+final class AppointmentPanel: NSObject {
+  private let appointment: Appointment
 
-  override init(frame: CGRect) {
-    super.init(frame: frame)
+  var frame: CGRect
 
-    setupView()
-  }
+  init(appointment: Appointment, frame: CGRect) {
+    self.appointment = appointment
+    self.frame = frame
 
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-
-    setupView()
-  }
-
-  override func layoutSubviews() {
-    timeLayer.frame = layer.bounds
-    timeLayer.setNeedsDisplay()
-  }
-
-  private func setupView() {
-    timeLayer.delegate = timeLayerDelegate
-    timeLayer.frame = layer.bounds
-    layer.addSublayer(timeLayer)
-    timeLayer.setNeedsDisplay()
+    super.init()
   }
 }
