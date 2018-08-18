@@ -21,12 +21,16 @@
 final class AppointmentPanel: NSObject {
   private let appointment: Appointment
 
-  var frame: CGRect
+  let layer = CALayer()
 
-  init(appointment: Appointment, frame: CGRect) {
+  init(appointment: Appointment) {
     self.appointment = appointment
-    self.frame = frame
 
     super.init()
+
+    layer.delegate = self
   }
+}
+
+extension AppointmentPanel: CALayerDelegate {
 }

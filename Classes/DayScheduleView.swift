@@ -27,11 +27,14 @@
 open class DayScheduleView: UIView {
   private let scrollView = UIScrollView()
   private let timeView = TimeView()
+  private var timeViewHeight: NSLayoutConstraint!
 
   public override init(frame: CGRect) {
     super.init(frame: frame)
 
-    setupView()
+    #if !TARGET_INTERFACE_BUILDER
+      setupView()
+    #endif
   }
 
   public required init?(coder aDecoder: NSCoder) {
@@ -47,9 +50,14 @@ open class DayScheduleView: UIView {
   }
 
   override open func layoutSubviews() {
-    super.layoutSubviews()
-
     scrollView.contentInset = safeAreaInsets
+
+    let newSettings = calculateSettings()
+    scrollView.contentSize = newSettings.contentSize
+    timeViewHeight.constant = newSettings.contentSize.height
+    timeView.settings = newSettings
+
+    super.layoutSubviews()
   }
 
   private func setupView() {
@@ -59,8 +67,6 @@ open class DayScheduleView: UIView {
 
   private func setupScrollView() {
     scrollView.translatesAutoresizingMaskIntoConstraints = false
-    scrollView.contentSize = CGSize(width: bounds.width, height: 2085.0)
-    scrollView.contentInsetAdjustmentBehavior = .never
     addSubview(scrollView)
     scrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
     scrollView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
@@ -71,7 +77,63 @@ open class DayScheduleView: UIView {
   private func setupTimeView() {
     timeView.translatesAutoresizingMaskIntoConstraints = false
     scrollView.addSubview(timeView)
-    timeView.heightAnchor.constraint(equalToConstant: 2085.0).isActive = true
+    timeViewHeight = timeView.heightAnchor.constraint(equalToConstant: 2085.0)
+    timeViewHeight.isActive = true
     timeView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+  }
+
+  private func calculateSettings() -> DayScheduleViewSettings {
+    let hourStyle = NSMutableParagraphStyle()
+    hourStyle.alignment = .right
+    let caption1Font = UIFont.preferredFont(forTextStyle: .caption1)
+    let hourAttributes: [NSAttributedStringKey: Any] = [
+      .font: caption1Font,
+      .paragraphStyle: hourStyle
+    ]
+    let hourSize = NSString(string: "10 AM").size(withAttributes: hourAttributes)
+    let timeSize = CGSize(width: hourSize.width.rounded(.up) + 16.0, height: hourSize.height)
+    let halfHourHeight = hourSize.height / 2.0
+    let marginHeight = max(10.0, halfHourHeight).rounded(.up)
+
+    let descriptor = caption1Font.fontDescriptor.withSymbolicTraits(.traitBold)!
+    let titleFont = UIFont(descriptor: descriptor, size: 0.0)
+    let locationFont = UIFont.preferredFont(forTextStyle: .caption2)
+    let titleAttributes: [NSAttributedStringKey: Any] = [.font: titleFont]
+    let locationAttributes: [NSAttributedStringKey: Any] = [.font: locationFont]
+    let titleSize = NSString(string: "Sample title").size(withAttributes: titleAttributes)
+    let locationSize = NSString(string: "Sample Location").size(withAttributes: locationAttributes)
+    let timePeriodHeight = max(40.0, (titleSize.height + locationSize.height).rounded(.up) + 8)
+    let scheduleHeight = (2 * marginHeight) + 25.0 + 24.0 + 96.0 + (48 * timePeriodHeight)
+    let contentSize = CGSize(width: bounds.width, height: scheduleHeight)
+    let hourHeight = (2 * timePeriodHeight) + 6.0
+
+    let hourOriginY = marginHeight - halfHourHeight
+    let hourFrame = CGRect(
+      x: 8.0,
+      y: hourOriginY,
+      width: hourSize.width.rounded(.up),
+      height: hourSize.height
+    )
+    let hourLineFrame = CGRect(
+      x: timeSize.width,
+      y: marginHeight,
+      width: bounds.width - timeSize.width,
+      height: 1.0
+    )
+    let halfHourLineFrame = hourLineFrame.offsetBy(dx: 0.0, dy: 3.0 + timePeriodHeight)
+
+    return DayScheduleViewSettings(
+      hourAttributes: hourAttributes,
+      titleAttributes: titleAttributes,
+      locationAttributes: locationAttributes,
+      contentSize: contentSize,
+      hourSize: timeSize,
+      marginHeight: marginHeight,
+      timePeriodHeight: timePeriodHeight,
+      hourHeight: hourHeight,
+      hourFrame: hourFrame,
+      hourLineFrame: hourLineFrame,
+      halfHourLineFrame: halfHourLineFrame
+    )
   }
 }

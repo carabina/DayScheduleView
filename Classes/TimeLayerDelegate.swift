@@ -19,53 +19,60 @@
 // SOFTWARE.
 
 final class TimeLayerDelegate: NSObject {
-  let hourAttributes: [NSAttributedStringKey: Any]
-  let hourSize: CGSize
-  let heightOffset: CGFloat
-  
-  override init() {
-    let paragraphStyle = NSMutableParagraphStyle()
-    paragraphStyle.alignment = .right
-    hourAttributes = [
-      .font: UIFont.preferredFont(forTextStyle: .caption1),
-      .paragraphStyle: paragraphStyle
-    ]
-
-    let time = NSString(string: "12:00 AM")
-    let size = time.size(withAttributes: hourAttributes)
-    let hourWidth = size.width.rounded(.up) + 16.0
-    heightOffset = size.height / 2.0
-    hourSize = CGSize(width: hourWidth, height: size.height)
-  }
+  var settings: DayScheduleViewSettings!
 }
 
 extension TimeLayerDelegate: CALayerDelegate {
   func draw(_ layer: CALayer, in ctx: CGContext) {
-    UIGraphicsPushContext(ctx)
+    let hours = [
+      "12 AM",
+      "1 AM",
+      "2 AM",
+      "3 AM",
+      "4 AM",
+      "5 AM",
+      "6 AM",
+      "7 AM",
+      "8 AM",
+      "9 AM",
+      "10 AM",
+      "11 AM",
+      "Noon",
+      "1 PM",
+      "2 PM",
+      "3 PM",
+      "4 PM",
+      "5 PM",
+      "6 PM",
+      "7 PM",
+      "8 PM",
+      "9 PM",
+      "10 PM",
+      "11 PM"
+    ]
 
-    let hourFrame = CGRect(x: 0.0, y: 10.0 - heightOffset, width: hourSize.width - 8.0, height: hourSize.height)
-    NSString(string: "12 AM").draw(in: hourFrame, withAttributes: hourAttributes)
+    var y: CGFloat = 0.0
+    for hour in hours {
+      draw(hour: hour, at: y, in: ctx)
+      y += settings.hourHeight
+    }
 
-    UIColor.black.setFill()
-
-    UIGraphicsPopContext()
-
-    draw(hour: "12 AM", at: CGRect(x: 0.0, y: 10.0, width: layer.bounds.width, height: 86.0), in: ctx)
-    draw(hour: "1 AM", at: CGRect(x: 0.0, y: 96.0, width: layer.bounds.width, height: 86.0), in: ctx)
-    draw(hour: "2 AM", at: CGRect(x: 0.0, y: 182.0, width: layer.bounds.width, height: 86.0), in: ctx)
+    drawHourLine(hour: "12 AM", at: y, in: ctx)
   }
 
-  private func draw(hour: String, at frame: CGRect, in ctx: CGContext) {
+  private func draw(hour: String, at originY: CGFloat, in ctx: CGContext) {
+    drawHourLine(hour: hour, at: originY, in: ctx)
+    let halfHourLineFrame = settings.halfHourLineFrame.offsetBy(dx: 0.0, dy: originY)
+    ctx.fill(halfHourLineFrame)
+  }
+
+  private func drawHourLine(hour: String, at originY: CGFloat, in ctx: CGContext) {
     UIGraphicsPushContext(ctx)
-    let hourFrame = CGRect(x: frame.origin.x, y: frame.origin.y - heightOffset, width: hourSize.width - 8.0, height: hourSize.height)
-    NSString(string: hour).draw(in: hourFrame, withAttributes: hourAttributes)
+    let hourFrame = settings.hourFrame.offsetBy(dx: 0.0, dy: originY)
+    NSString(string: hour).draw(in: hourFrame, withAttributes: settings.hourAttributes)
     UIGraphicsPopContext()
 
-    let hourLineFrame = CGRect(x: frame.origin.x + hourSize.width, y: frame.origin.y, width: frame.width - hourSize.width, height: 1.0)
-    UIColor.black.setFill()
+    let hourLineFrame = settings.hourLineFrame.offsetBy(dx: 0.0, dy: originY)
     ctx.fill(hourLineFrame)
-
-    let halfHourLineFrame = CGRect(x: hourLineFrame.origin.x, y: hourLineFrame.origin.y + 42.0, width: hourLineFrame.width, height: 1.0)
-    ctx.fill(halfHourLineFrame)
   }
 }

@@ -34,6 +34,16 @@ final class TimeView: UIView {
     setupView()
   }
 
+  var settings: DayScheduleViewSettings {
+    get {
+      return timeLayerDelegate.settings
+    }
+    set {
+      timeLayerDelegate.settings = newValue
+      setNeedsLayout()
+    }
+  }
+
   override func layoutSubviews() {
     timeLayer.frame = layer.bounds
     timeLayer.setNeedsDisplay()
@@ -43,6 +53,5 @@ final class TimeView: UIView {
     timeLayer.delegate = timeLayerDelegate
     timeLayer.frame = layer.bounds
     layer.addSublayer(timeLayer)
-    timeLayer.setNeedsDisplay()
   }
 }
