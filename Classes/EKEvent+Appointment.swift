@@ -20,7 +20,7 @@
 
 import EventKit
 
-extension EKEvent: Appointment {
+extension EKEvent: DayScheduleViewAppointment {
   public var color: UIColor {
     return UIColor(cgColor: calendar.cgColor)
   }

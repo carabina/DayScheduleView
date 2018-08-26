@@ -28,6 +28,23 @@ open class DayScheduleView: UIView {
   private let scrollView = UIScrollView()
   private let timeView = TimeView()
   private var timeViewHeight: NSLayoutConstraint!
+  private let operationQueue = DispatchQueue(label: "myQueue", qos: .utility)
+
+  public weak var dataSource: DayScheduleViewDataSource? {
+    didSet {
+      loadAppointments()
+    }
+  }
+
+  public var date: Date {
+    get {
+      return timeView.date
+    }
+    set {
+      timeView.date = newValue
+      loadAppointments()
+    }
+  }
 
   public override init(frame: CGRect) {
     super.init(frame: frame)
@@ -135,5 +152,21 @@ open class DayScheduleView: UIView {
       hourLineFrame: hourLineFrame,
       halfHourLineFrame: halfHourLineFrame
     )
+  }
+
+  private func loadAppointments() {
+    guard let dataSource = dataSource else {
+      return
+    }
+
+    operationQueue.async {
+      let startDate = Calendar.current.startOfDay(for: self.date)
+      let endDateComponents = DateComponents(day: 1)
+      let endDate = Calendar.current.date(byAdding: endDateComponents, to: startDate)!
+      let appointments = dataSource.dayScheduleView(self, appointmentsWithStart: startDate, end: endDate)
+      DispatchQueue.main.async {
+        self.timeView.appointments = appointments
+      }
+    }
   }
 }

@@ -40,5 +40,5 @@
     _ dayScheduleView: DayScheduleView,
     appointmentsWithStart startDate: Date,
     end endDate: Date
-    ) -> [Appointment]?
+    ) -> [DayScheduleViewAppointment]?
 }

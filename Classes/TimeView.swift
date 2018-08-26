@@ -21,6 +21,17 @@
 final class TimeView: UIView {
   private let timeLayer = CALayer()
   private let timeLayerDelegate = TimeLayerDelegate()
+  private var timePeriods = Array(repeating: [AppointmentPanel](), count: 48)
+  private let dispatchQueue = DispatchQueue(label: "timeViewQueue", qos: .utility)
+
+  var appointments: [DayScheduleViewAppointment]? {
+    didSet {
+      removeAppointments()
+      loadAppointments()
+    }
+  }
+
+  var date = Date()
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -47,11 +58,68 @@ final class TimeView: UIView {
   override func layoutSubviews() {
     timeLayer.frame = layer.bounds
     timeLayer.setNeedsDisplay()
+
+    
   }
 
   private func setupView() {
     timeLayer.delegate = timeLayerDelegate
     timeLayer.frame = layer.bounds
     layer.addSublayer(timeLayer)
+  }
+
+  private func removeAppointments() {
+    for timePeriod in timePeriods {
+      if 0 == timePeriod.count {
+        continue
+      }
+
+      for appointmentPanel in timePeriod {
+        appointmentPanel.layer.removeFromSuperlayer()
+      }
+    }
+  }
+
+  private func loadAppointments() {
+    guard let appointments = appointments else {
+      return
+    }
+
+    dispatchQueue.async {
+      var timePeriods = Array(repeating: [AppointmentPanel](), count: 48)
+
+      let startOfDay = Calendar.current.startOfDay(for: self.date)
+      let endOfDayComponents = DateComponents(day: 1, minute: -1)
+      let endOfDay = Calendar.current.date(byAdding: endOfDayComponents, to: startOfDay)!
+      let endTimeComponents = DateComponents(minute: -1)
+
+      for appointment in appointments {
+        var startDate = appointment.startDate!
+        if startDate < startOfDay {
+          startDate = startOfDay
+        }
+
+        var endDate = appointment.endDate!
+        if endDate > endOfDay {
+          endDate = endOfDay
+        } else {
+          endDate = Calendar.current.date(byAdding: endTimeComponents, to: endDate)!
+        }
+
+        let startDateComponents = Calendar.current.dateComponents([.hour, .minute], from: startDate)
+        let endDateComponents = Calendar.current.dateComponents([.hour, .minute], from: endDate)
+        let startIndex = (startDateComponents.hour! * 2) + (startDateComponents.minute! > 30 ? 1 : 0)
+        let endIndex = (endDateComponents.hour! * 2) + (endDateComponents.minute! > 30 ? 1 : 0)
+        for i in startIndex...endIndex {
+          let appointmentPanel = AppointmentPanel(appointment: appointment)
+          timePeriods[i].append(appointmentPanel)
+        }
+      }
+
+      DispatchQueue.main.async {
+        self.timePeriods = timePeriods
+        self.setNeedsLayout()
+      }
+    }
   }
 }

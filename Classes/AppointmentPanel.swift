@@ -19,11 +19,11 @@
 // SOFTWARE.
 
 final class AppointmentPanel: NSObject {
-  private let appointment: Appointment
+  private let appointment: DayScheduleViewAppointment
 
   let layer = CALayer()
 
-  init(appointment: Appointment) {
+  init(appointment: DayScheduleViewAppointment) {
     self.appointment = appointment
 
     super.init()
