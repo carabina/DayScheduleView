@@ -13,11 +13,12 @@
 		EF4052A02127832C00A0AAD9 /* EKEventStoreDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF40529F2127832C00A0AAD9 /* EKEventStoreDataSource.swift */; };
 		EF4052A12127847A00A0AAD9 /* EKEvent+Appointment.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF40529D212782F100A0AAD9 /* EKEvent+Appointment.swift */; };
 		EF4052A22127847D00A0AAD9 /* EKEventStoreDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF40529F2127832C00A0AAD9 /* EKEventStoreDataSource.swift */; };
-		EF4052CA2127923700A0AAD9 /* AppointmentPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4052C92127923700A0AAD9 /* AppointmentPanel.swift */; };
-		EF4052CB2127923700A0AAD9 /* AppointmentPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4052C92127923700A0AAD9 /* AppointmentPanel.swift */; };
+		EF4052CA2127923700A0AAD9 /* AppointmentLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4052C92127923700A0AAD9 /* AppointmentLayer.swift */; };
+		EF4052CB2127923700A0AAD9 /* AppointmentLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4052C92127923700A0AAD9 /* AppointmentLayer.swift */; };
 		EF4052CD2127B0FD00A0AAD9 /* TimeLayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4052CC2127B0FD00A0AAD9 /* TimeLayerDelegate.swift */; };
 		EF4052CE2127B0FD00A0AAD9 /* TimeLayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4052CC2127B0FD00A0AAD9 /* TimeLayerDelegate.swift */; };
 		EF4052D02128906F00A0AAD9 /* DayScheduleViewSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4052CF2128906F00A0AAD9 /* DayScheduleViewSettings.swift */; };
+		EF6AD853213788FA003AF8D7 /* DayScheduleViewSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4052CF2128906F00A0AAD9 /* DayScheduleViewSettings.swift */; };
 		EF73BCC12117FD48001BEBE1 /* DayScheduleView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF73BCB72117FD48001BEBE1 /* DayScheduleView.framework */; };
 		EF73BCC62117FD48001BEBE1 /* iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF73BCC52117FD48001BEBE1 /* iOSTests.swift */; };
 		EF73BCC82117FD48001BEBE1 /* DayScheduleView.h in Headers */ = {isa = PBXBuildFile; fileRef = EF73BCBA2117FD48001BEBE1 /* DayScheduleView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -50,7 +51,7 @@
 		EF4052972127823E00A0AAD9 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.4.sdk/System/Library/Frameworks/EventKit.framework; sourceTree = DEVELOPER_DIR; };
 		EF40529D212782F100A0AAD9 /* EKEvent+Appointment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EKEvent+Appointment.swift"; sourceTree = "<group>"; };
 		EF40529F2127832C00A0AAD9 /* EKEventStoreDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKEventStoreDataSource.swift; sourceTree = "<group>"; };
-		EF4052C92127923700A0AAD9 /* AppointmentPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentPanel.swift; sourceTree = "<group>"; };
+		EF4052C92127923700A0AAD9 /* AppointmentLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentLayer.swift; sourceTree = "<group>"; };
 		EF4052CC2127B0FD00A0AAD9 /* TimeLayerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLayerDelegate.swift; sourceTree = "<group>"; };
 		EF4052CF2128906F00A0AAD9 /* DayScheduleViewSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayScheduleViewSettings.swift; sourceTree = "<group>"; };
 		EF73BCB72117FD48001BEBE1 /* DayScheduleView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DayScheduleView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -156,7 +157,7 @@
 				EF73BD012120AB49001BEBE1 /* DayScheduleViewAppointment.swift */,
 				EF40529D212782F100A0AAD9 /* EKEvent+Appointment.swift */,
 				EF40529F2127832C00A0AAD9 /* EKEventStoreDataSource.swift */,
-				EF4052C92127923700A0AAD9 /* AppointmentPanel.swift */,
+				EF4052C92127923700A0AAD9 /* AppointmentLayer.swift */,
 				EF4052CC2127B0FD00A0AAD9 /* TimeLayerDelegate.swift */,
 				EF4052CF2128906F00A0AAD9 /* DayScheduleViewSettings.swift */,
 			);
@@ -313,7 +314,7 @@
 				EF4052A02127832C00A0AAD9 /* EKEventStoreDataSource.swift in Sources */,
 				EFAFB990211B7CE2004328F7 /* DayScheduleViewDelegate.swift in Sources */,
 				EF73BCFC21180ED1001BEBE1 /* TimeView.swift in Sources */,
-				EF4052CA2127923700A0AAD9 /* AppointmentPanel.swift in Sources */,
+				EF4052CA2127923700A0AAD9 /* AppointmentLayer.swift in Sources */,
 				EF4052CD2127B0FD00A0AAD9 /* TimeLayerDelegate.swift in Sources */,
 				EF4052D02128906F00A0AAD9 /* DayScheduleViewSettings.swift in Sources */,
 				EF73BD022120AB49001BEBE1 /* DayScheduleViewAppointment.swift in Sources */,
@@ -339,8 +340,9 @@
 				EF4052A22127847D00A0AAD9 /* EKEventStoreDataSource.swift in Sources */,
 				EF73BCFD21180ED1001BEBE1 /* TimeView.swift in Sources */,
 				EF73BD0021188C4B001BEBE1 /* DayScheduleViewStyleKit.swift in Sources */,
-				EF4052CB2127923700A0AAD9 /* AppointmentPanel.swift in Sources */,
+				EF4052CB2127923700A0AAD9 /* AppointmentLayer.swift in Sources */,
 				EF4052CE2127B0FD00A0AAD9 /* TimeLayerDelegate.swift in Sources */,
+				EF6AD853213788FA003AF8D7 /* DayScheduleViewSettings.swift in Sources */,
 				EF73BD032120AB49001BEBE1 /* DayScheduleViewAppointment.swift in Sources */,
 				EF4052A12127847A00A0AAD9 /* EKEvent+Appointment.swift in Sources */,
 				EFAFB994211B7D76004328F7 /* DayScheduleViewDelegate.swift in Sources */,

@@ -21,7 +21,7 @@
 final class TimeView: UIView {
   private let timeLayer = CALayer()
   private let timeLayerDelegate = TimeLayerDelegate()
-  private var timePeriods = Array(repeating: [AppointmentPanel](), count: 48)
+  private var appointmentLayers = [AppointmentLayer]()
   private let dispatchQueue = DispatchQueue(label: "timeViewQueue", qos: .utility)
 
   var appointments: [DayScheduleViewAppointment]? {
@@ -59,7 +59,7 @@ final class TimeView: UIView {
     timeLayer.frame = layer.bounds
     timeLayer.setNeedsDisplay()
 
-    
+    layoutAppointments()
   }
 
   private func setupView() {
@@ -69,15 +69,11 @@ final class TimeView: UIView {
   }
 
   private func removeAppointments() {
-    for timePeriod in timePeriods {
-      if 0 == timePeriod.count {
-        continue
-      }
-
-      for appointmentPanel in timePeriod {
-        appointmentPanel.layer.removeFromSuperlayer()
-      }
+    for appointmentLayer in appointmentLayers {
+      appointmentLayer.layer.removeFromSuperlayer()
     }
+
+    appointmentLayers.removeAll()
   }
 
   private func loadAppointments() {
@@ -85,41 +81,67 @@ final class TimeView: UIView {
       return
     }
 
-    dispatchQueue.async {
-      var timePeriods = Array(repeating: [AppointmentPanel](), count: 48)
-
-      let startOfDay = Calendar.current.startOfDay(for: self.date)
-      let endOfDayComponents = DateComponents(day: 1, minute: -1)
-      let endOfDay = Calendar.current.date(byAdding: endOfDayComponents, to: startOfDay)!
-      let endTimeComponents = DateComponents(minute: -1)
-
-      for appointment in appointments {
-        var startDate = appointment.startDate!
-        if startDate < startOfDay {
-          startDate = startOfDay
+    self.appointmentLayers = appointments
+      .sorted { (l, r) -> Bool in
+        if l.startDate < r.startDate {
+          return true
         }
 
-        var endDate = appointment.endDate!
-        if endDate > endOfDay {
-          endDate = endOfDay
-        } else {
-          endDate = Calendar.current.date(byAdding: endTimeComponents, to: endDate)!
+        if l.startDate > r.startDate {
+          return false
         }
 
-        let startDateComponents = Calendar.current.dateComponents([.hour, .minute], from: startDate)
-        let endDateComponents = Calendar.current.dateComponents([.hour, .minute], from: endDate)
-        let startIndex = (startDateComponents.hour! * 2) + (startDateComponents.minute! > 30 ? 1 : 0)
-        let endIndex = (endDateComponents.hour! * 2) + (endDateComponents.minute! > 30 ? 1 : 0)
-        for i in startIndex...endIndex {
-          let appointmentPanel = AppointmentPanel(appointment: appointment)
-          timePeriods[i].append(appointmentPanel)
-        }
+        return l.endDate > r.endDate
+      }
+      .map { (appointment) -> AppointmentLayer in
+        let appointmentLayer =
+          AppointmentLayer(settings: self.settings, appointment: appointment)
+        self.appointmentLayers.append(appointmentLayer)
+        appointmentLayer.layer.frame = layer.bounds
+        layer.addSublayer(appointmentLayer.layer)
+        return appointmentLayer
+    }
+
+    setNeedsLayout()
+  }
+
+  private func layoutAppointments() {
+    let startOfDay = Calendar.current.startOfDay(for: date)
+    let endDateComponents = DateComponents(day: 1, minute: -1)
+    let endOfDay =
+      Calendar.current.date(byAdding: endDateComponents, to: startOfDay)!
+    let totalWidth = bounds.width - settings.hourSize.width
+    for appointmentLayer in appointmentLayers {
+      let startDate = appointmentLayer.appointment.startDate! < startOfDay
+        ? startOfDay
+        : appointmentLayer.appointment.startDate!
+      let endDate = appointmentLayer.appointment.endDate! > endOfDay
+        ? endOfDay
+        : appointmentLayer.appointment.endDate!
+      let startTime =
+        Calendar.current.dateComponents([.hour, .minute], from: startDate)
+      let endTime =
+        Calendar.current.dateComponents([.hour, .minute], from: endDate)
+      var y = settings.marginHeight +
+        (CGFloat(startTime.hour!) * settings.hourHeight) +
+        2.0
+      if startTime.minute! == 30 {
+        y += settings.hourHeight / 2.0
       }
 
-      DispatchQueue.main.async {
-        self.timePeriods = timePeriods
-        self.setNeedsLayout()
+      let duration = CGFloat(DateInterval(start: startDate, end: endDate).duration / 60.0)
+      var height = (duration / 60.0) * settings.hourHeight
+      if (endTime.minute! % 30) == 0 || endTime.minute! == 59 {
+        height -= 3.0
       }
+
+      appointmentLayer.layer.frame = CGRect(
+        x: settings.hourSize.width,
+        y: y,
+        width: totalWidth,
+        height: height
+      )
+      appointmentLayer.layer.setNeedsDisplay()
     }
   }
 }
