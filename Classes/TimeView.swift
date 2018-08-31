@@ -106,18 +106,22 @@ final class TimeView: UIView {
   }
 
   private func layoutAppointments() {
+    var timePeriods = Array(repeating: [AppointmentLayer](), count: 48)
+
     let startOfDay = Calendar.current.startOfDay(for: date)
     let endDateComponents = DateComponents(day: 1, minute: -1)
     let endOfDay =
       Calendar.current.date(byAdding: endDateComponents, to: startOfDay)!
     let totalWidth = bounds.width - settings.hourSize.width
+    let endTimeComponents = DateComponents(minute: -1)
+
     for appointmentLayer in appointmentLayers {
-      let startDate = appointmentLayer.appointment.startDate! < startOfDay
+      let startDate = appointmentLayer.appointment.startDate < startOfDay
         ? startOfDay
-        : appointmentLayer.appointment.startDate!
-      let endDate = appointmentLayer.appointment.endDate! > endOfDay
+        : appointmentLayer.appointment.startDate
+      let endDate = appointmentLayer.appointment.endDate > endOfDay
         ? endOfDay
-        : appointmentLayer.appointment.endDate!
+        : appointmentLayer.appointment.endDate
       let startTime =
         Calendar.current.dateComponents([.hour, .minute], from: startDate)
       let endTime =
@@ -141,6 +145,32 @@ final class TimeView: UIView {
         width: totalWidth,
         height: height
       )
+
+      let indexEndTime = Calendar.current.date(byAdding: endTimeComponents, to: endDate)!
+      let indexEndTimeComponents = Calendar.current.dateComponents([.hour, .minute], from: indexEndTime)
+      let startIndex = (startTime.hour! * 2) + (startTime.minute! >= 30 ? 1 : 0)
+      let endIndex = (indexEndTimeComponents.hour! * 2) + (indexEndTimeComponents.minute! >= 30 ? 1 : 0)
+      for i in startIndex...endIndex {
+        timePeriods[i].append(appointmentLayer)
+      }
+    }
+
+    for timePeriod in timePeriods {
+      var x: CGFloat = settings.hourSize.width
+      for appointmentLayer in timePeriod {
+        let frame = appointmentLayer.layer.frame
+        let width = min(frame.width, (totalWidth - (CGFloat(timePeriod.count - 1) * 2.0)) / CGFloat(timePeriod.count))
+        appointmentLayer.layer.frame = CGRect(
+          x: x,
+          y: frame.origin.y,
+          width: width,
+          height: frame.height
+        )
+        x += width + 2.0
+      }
+    }
+
+    for appointmentLayer in appointmentLayers {
       appointmentLayer.layer.setNeedsDisplay()
     }
   }

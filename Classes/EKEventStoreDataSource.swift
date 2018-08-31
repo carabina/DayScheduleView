@@ -39,5 +39,6 @@ open class EKEventStoreDataSource: DayScheduleViewDataSource {
       calendars: calendars
     )
     return eventStore.events(matching: predicate)
+      .map { DayScheduleViewAppointmentEKEventAdapter(event: $0) }
   }
 }

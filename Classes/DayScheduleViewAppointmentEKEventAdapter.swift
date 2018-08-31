@@ -20,8 +20,34 @@
 
 import EventKit
 
-extension EKEvent: DayScheduleViewAppointment {
+open class DayScheduleViewAppointmentEKEventAdapter: DayScheduleViewAppointment {
+  private let event: EKEvent
+
+  public init(event: EKEvent) {
+    self.event = event
+  }
+
   public var color: UIColor {
-    return UIColor(cgColor: calendar.cgColor)
+    return UIColor(cgColor: event.calendar.cgColor)
+  }
+
+  public var title: String {
+    return event.title!
+  }
+
+  public var location: String? {
+    return event.location
+  }
+
+  public var startDate: Date {
+    return event.startDate!
+  }
+
+  public var endDate: Date {
+    return event.endDate!
+  }
+
+  public var isAllDay: Bool {
+    return event.isAllDay
   }
 }
