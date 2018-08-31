@@ -30,12 +30,15 @@ open class DayScheduleView: UIView {
   private var timeViewHeight: NSLayoutConstraint!
   private let operationQueue = DispatchQueue(label: "myQueue", qos: .utility)
 
+  /// The object that acts as the data source for appointments to be displayed
+  /// in the view.
   public weak var dataSource: DayScheduleViewDataSource? {
     didSet {
       loadAppointments()
     }
   }
 
+  /// The date that should be displayed in the schedule view.
   public var date: Date {
     get {
       return timeView.date
@@ -46,6 +49,10 @@ open class DayScheduleView: UIView {
     }
   }
 
+  /// Initializes and returns a day schedule view object having the given frame.
+  ///
+  /// - Parameter frame: A rectangle specifying the initial location and size
+  ///   of the day schedule view in its superview's coordinates.
   public override init(frame: CGRect) {
     super.init(frame: frame)
 
@@ -54,12 +61,18 @@ open class DayScheduleView: UIView {
     #endif
   }
 
+  /// Initializes and returns a day schedule view from the coded data.
+  ///
+  /// - Parameter aDecoder: The `NSCoder` object to use to deserialize the
+  ///   day schedule view settings.
   public required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
 
     setupView()
   }
 
+  /// Initializes the day schedule view in order for the schedule view to render
+  /// properly in Interface Builder.
   open override func prepareForInterfaceBuilder() {
     setupView()
 
@@ -77,6 +90,8 @@ open class DayScheduleView: UIView {
     super.layoutSubviews()
   }
 
+  /// Reloads all of the appointments for the current day and updates the day
+  /// schedule view.
   public func invalidate() {
     loadAppointments()
     setNeedsDisplay()

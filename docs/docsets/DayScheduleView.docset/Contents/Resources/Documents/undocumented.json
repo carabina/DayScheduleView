@@ -1,12 +1,6 @@
 {
   "warnings": [
-    {
-      "file": "/Users/michaelcollins/Projects/nakedsoftware/DayScheduleView/Classes/DayScheduleViewDelegate.swift",
-      "line": 21,
-      "symbol": "DayScheduleViewDelegate",
-      "symbol_kind": "source.lang.swift.decl.protocol",
-      "warning": "undocumented"
-    }
+
   ],
   "source_directory": "/Users/michaelcollins/Projects/nakedsoftware/DayScheduleView"
 }

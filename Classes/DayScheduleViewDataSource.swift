@@ -23,7 +23,7 @@
 /// object to provide appointments that will be displayed within the schedule.
 ///
 /// - since: 1.0
-@objc public protocol DayScheduleViewDataSource: AnyObject {
+public protocol DayScheduleViewDataSource: AnyObject {
   /// Returns the list of appointments to display in the schedule view for the
   /// specified 24-hour period.
   ///

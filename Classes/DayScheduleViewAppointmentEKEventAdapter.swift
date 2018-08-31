@@ -20,9 +20,17 @@
 
 import EventKit
 
-open class DayScheduleViewAppointmentEKEventAdapter: DayScheduleViewAppointment {
+/// Adapter type that presents `EKEvent` objects as `DayScheduleViewAppointment`
+/// objects to be displayed in the `DayScheduleView` view.
+///
+/// - Since: 1.0
+public struct DayScheduleViewAppointmentEKEventAdapter: DayScheduleViewAppointment {
   private let event: EKEvent
 
+  /// Initializes and returns an adapter for the specified event.
+  ///
+  /// - Parameter event: The `EKEvent` object that should be presented as an
+  ///   appointment.
   public init(event: EKEvent) {
     self.event = event
   }
@@ -45,9 +53,5 @@ open class DayScheduleViewAppointmentEKEventAdapter: DayScheduleViewAppointment 
 
   public var endDate: Date {
     return event.endDate!
-  }
-
-  public var isAllDay: Bool {
-    return event.isAllDay
   }
 }

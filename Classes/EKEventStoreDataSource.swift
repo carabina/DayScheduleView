@@ -20,10 +20,27 @@
 
 import EventKit
 
+/// Appointment data source that loads appointments from the user's calendar
+/// database using EventKit.
+///
+/// `EKEventStoreDataSource` can be used as a default data source to display
+/// events in the user's calendar database in the day schedule view as
+/// appointments.
+///
+/// - Since: 1.0
 open class EKEventStoreDataSource: DayScheduleViewDataSource {
   private let eventStore: EKEventStore
   private let calendars: [EKCalendar]?
 
+  /// Initializes and returns a data source object that loads events from the
+  /// event store and from specific calendars.
+  ///
+  /// - Parameters:
+  ///   - eventStore: The `EKEventStore` object to use to read events from the
+  ///     user's calendar database.
+  ///   - calendars: An optional array containing the calendars whose events
+  ///     should be shown in the day schedule view. If `nil`, then events from
+  ///     all calendars will be loaded.
   public init(eventStore: EKEventStore, calendars: [EKCalendar]? = nil) {
     self.eventStore = eventStore
     self.calendars = calendars

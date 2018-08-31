@@ -24,7 +24,7 @@
 /// present the appointment in the schedule.
 ///
 /// - since: 1.0
-@objc public protocol DayScheduleViewAppointment: AnyObject {
+public protocol DayScheduleViewAppointment {
   /// The color to use when displaying the appointment in the schedule.
   var color: UIColor { get }
 
@@ -41,8 +41,4 @@
   /// The end date is exclusive of the time of the appointment. For example,
   /// an end time of 11:00 means that the appoitment ends at 10:59.
   var endDate: Date { get }
-
-  /// Indicates whether the appointment is scheduled for the complete day. If
-  /// `true`, the appointment is all day.
-  var isAllDay: Bool { get }
 }
