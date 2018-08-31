@@ -38,6 +38,22 @@ class ViewController: UIViewController {
     addEventStoreDataSource()
   }
 
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+
+    NotificationCenter.default.addObserver(self, selector: #selector(eventStoreChanged(_:)), name: .EKEventStoreChanged, object: nil)
+  }
+
+  override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+
+    NotificationCenter.default.removeObserver(self)
+  }
+
+  @objc private func eventStoreChanged(_ notification: Notification) {
+    dayScheduleView.invalidate()
+  }
+
   private func addEventStoreDataSource() {
     switch EKEventStore.authorizationStatus(for: .event) {
     case .authorized:

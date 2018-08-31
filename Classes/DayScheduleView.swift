@@ -77,6 +77,11 @@ open class DayScheduleView: UIView {
     super.layoutSubviews()
   }
 
+  public func invalidate() {
+    loadAppointments()
+    setNeedsDisplay()
+  }
+
   private func setupView() {
     setupScrollView()
     setupTimeView()
