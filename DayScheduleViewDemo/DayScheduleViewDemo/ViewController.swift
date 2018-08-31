@@ -34,8 +34,6 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    dayScheduleView.date = Calendar.current.date(byAdding: DateComponents(day: -1), to: Date())!
-
     eventStore = EKEventStore()
     addEventStoreDataSource()
   }

@@ -106,7 +106,7 @@ open class DayScheduleView: UIView {
     let hourAttributes: [NSAttributedStringKey: Any] = [
       .font: caption1Font,
       .paragraphStyle: hourStyle,
-      .foregroundColor: UIColor(displayP3Red: 0.7, green: 0.7, blue: 0.7, alpha: 1.0).cgColor
+      .foregroundColor: UIColor(displayP3Red: 0.7, green: 0.7, blue: 0.7, alpha: 1.0)
     ]
     let hourSize = NSString(string: "10 AM").size(withAttributes: hourAttributes)
     let timeSize = CGSize(width: hourSize.width.rounded(.up) + 16.0, height: hourSize.height)
