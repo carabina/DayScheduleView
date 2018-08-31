@@ -21,8 +21,10 @@
 final class TimeView: UIView {
   private let timeLayer = CALayer()
   private let timeLayerDelegate = TimeLayerDelegate()
-  private var appointmentLayers = [AppointmentLayer]()
   private let dispatchQueue = DispatchQueue(label: "timeViewQueue", qos: .utility)
+
+  private var appointmentLayers = [AppointmentLayer]()
+  private var timePeriods = Array(repeating: [AppointmentLayer](), count: 48)
 
   var appointments: [DayScheduleViewAppointment]? {
     didSet {
@@ -60,6 +62,19 @@ final class TimeView: UIView {
     timeLayer.setNeedsDisplay()
 
     layoutAppointments()
+  }
+
+  func time(forPoint point: CGPoint) -> Float {
+    let y = (point.y - settings.marginHeight)
+    let hour = (y / settings.hourHeight).rounded(.down)
+    let difference = y - (hour * settings.hourHeight)
+    return Float(hour + (difference < (settings.hourHeight / 2) ? 0 : 0.5))
+  }
+
+  func hasAppointments(atPoint point: CGPoint) -> Bool {
+    let time = self.time(forPoint: point)
+    let timePeriod = Int(time.rounded(.toNearestOrAwayFromZero))
+    return !timePeriods[timePeriod].isEmpty
   }
 
   private func setupView() {
@@ -106,7 +121,7 @@ final class TimeView: UIView {
   }
 
   private func layoutAppointments() {
-    var timePeriods = Array(repeating: [AppointmentLayer](), count: 48)
+    timePeriods = Array(repeating: [AppointmentLayer](), count: 48)
 
     let startOfDay = Calendar.current.startOfDay(for: date)
     let endDateComponents = DateComponents(day: 1, minute: -1)

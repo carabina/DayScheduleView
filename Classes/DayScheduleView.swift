@@ -97,6 +97,26 @@ open class DayScheduleView: UIView {
     setNeedsDisplay()
   }
 
+  /// For the specified point, calculates the time period that the point belongs
+  /// to.
+  ///
+  /// - Parameter point: The point within the coordinate system of the day
+  ///   schedule view.
+  /// - Returns: A decimal value indicating the approximate time that the point
+  ///   belongs to. The integer part of the return value indicates the hour
+  ///   and will be between `0` and `23` inclusive. The fractional part will be
+  ///   `.0` if the point is within the first 30 minutes of the hour, and `.5`
+  ///   if the point is within the second 30 minutes of the hour.
+  public func time(forPoint point: CGPoint) -> Float {
+    let scrollViewPoint = convert(point, to: scrollView)
+    let timeViewPoint = scrollView.convert(scrollViewPoint, to: timeView)
+    return timeView.time(forPoint: timeViewPoint)
+  }
+
+  public func hasAppointments(atPoint point: CGPoint) -> Bool {
+    return timeView.hasAppointments(atPoint: point)
+  }
+
   private func setupView() {
     setupScrollView()
     setupTimeView()
@@ -136,8 +156,18 @@ open class DayScheduleView: UIView {
     let descriptor = caption1Font.fontDescriptor.withSymbolicTraits(.traitBold)!
     let titleFont = UIFont(descriptor: descriptor, size: 0.0)
     let locationFont = UIFont.preferredFont(forTextStyle: .caption2)
-    let titleAttributes: [NSAttributedStringKey: Any] = [.font: titleFont]
-    let locationAttributes: [NSAttributedStringKey: Any] = [.font: locationFont]
+    let titleParagraphStyle = NSMutableParagraphStyle()
+    titleParagraphStyle.lineBreakMode = .byTruncatingTail
+    let titleAttributes: [NSAttributedStringKey: Any] = [
+      .font: titleFont,
+      .paragraphStyle: titleParagraphStyle
+    ]
+    let locationParagraphStyle = NSMutableParagraphStyle()
+    locationParagraphStyle.lineBreakMode = .byTruncatingTail
+    let locationAttributes: [NSAttributedStringKey: Any] = [
+      .font: locationFont,
+      .paragraphStyle: locationParagraphStyle
+    ]
     let titleSize = NSString(string: "Sample title").size(withAttributes: titleAttributes)
     let locationSize = NSString(string: "Sample Location").size(withAttributes: locationAttributes)
     let timePeriodHeight = max(40.0, (titleSize.height + locationSize.height).rounded(.up) + 8)
