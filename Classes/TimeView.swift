@@ -77,6 +77,18 @@ final class TimeView: UIView {
     return !timePeriods[timePeriod].isEmpty
   }
 
+  func appointment(atPoint point: CGPoint) -> DayScheduleViewAppointment? {
+    for appointmentLayer in appointmentLayers {
+      if !appointmentLayer.layer.frame.contains(point) {
+        continue
+      }
+
+      return appointmentLayer.appointment
+    }
+
+    return nil
+  }
+
   private func setupView() {
     timeLayer.delegate = timeLayerDelegate
     timeLayer.frame = layer.bounds

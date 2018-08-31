@@ -49,6 +49,8 @@ open class DayScheduleView: UIView {
     }
   }
 
+  public weak var delegate: DayScheduleViewDelegate?
+
   /// Initializes and returns a day schedule view object having the given frame.
   ///
   /// - Parameter frame: A rectangle specifying the initial location and size
@@ -137,6 +139,18 @@ open class DayScheduleView: UIView {
     timeViewHeight = timeView.heightAnchor.constraint(equalToConstant: 2085.0)
     timeViewHeight.isActive = true
     timeView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+
+    let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+    timeView.addGestureRecognizer(tapGestureRecognizer)
+  }
+
+  @objc private func handleTap(_ sender: UITapGestureRecognizer) {
+    let point = sender.location(in: timeView)
+    guard let appointment = timeView.appointment(atPoint: point) else {
+      return
+    }
+
+    delegate?.dayScheduleView(self, appointmentTapped: appointment)
   }
 
   private func calculateSettings() -> DayScheduleViewSettings {

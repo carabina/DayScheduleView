@@ -22,5 +22,24 @@
 /// as the result of user interaction with the appointments or the schedule.
 ///
 /// - since: 1.0
-@objc public protocol DayScheduleViewDelegate: AnyObject {
+public protocol DayScheduleViewDelegate: AnyObject {
+  /// Notifies the delegate that an appointment was tapped in the day schedule
+  /// view.
+  ///
+  /// - Parameters:
+  ///   - dayScheduleView: The `DayScheduleView` view that the appointment was
+  ///     tapped in.
+  ///   - appointment: The appointment that was tapped.
+  func dayScheduleView(
+    _ dayScheduleView: DayScheduleView,
+    appointmentTapped appointment: DayScheduleViewAppointment
+  )
+}
+
+extension DayScheduleViewDelegate {
+  public func dayScheduleView(
+    _ dayScheduleView: DayScheduleView,
+    appointmentTapped appointment: DayScheduleViewAppointment
+    ) {
+  }
 }

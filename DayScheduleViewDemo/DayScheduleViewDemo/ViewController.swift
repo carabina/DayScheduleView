@@ -34,6 +34,8 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
+    dayScheduleView.delegate = self
+
     eventStore = EKEventStore()
     addEventStoreDataSource()
   }
@@ -86,3 +88,11 @@ class ViewController: UIViewController {
   }
 }
 
+extension ViewController: DayScheduleViewDelegate {
+  func dayScheduleView(
+    _ dayScheduleView: DayScheduleView,
+    appointmentTapped appointment: DayScheduleViewAppointment
+    ) {
+    print("TAPPED: \(appointment.title)")
+  }
+}
