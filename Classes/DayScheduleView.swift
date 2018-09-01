@@ -84,10 +84,10 @@ open class DayScheduleView: UIView {
   override open func layoutSubviews() {
     scrollView.contentInset = safeAreaInsets
 
-    let newSettings = calculateSettings()
-    scrollView.contentSize = newSettings.contentSize
-    timeViewHeight.constant = newSettings.contentSize.height
-    timeView.settings = newSettings
+    let newMetrics = calculateMetrics()
+    scrollView.contentSize = newMetrics.contentSize
+    timeViewHeight.constant = newMetrics.contentSize.height
+    timeView.metrics = newMetrics
 
     super.layoutSubviews()
   }
@@ -128,7 +128,7 @@ open class DayScheduleView: UIView {
   }
 
   public func scroll(toTime time: Float, animated: Bool) {
-    let settings = timeView.settings
+    let settings = timeView.metrics
     let y = settings.marginHeight + (CGFloat(time) * settings.hourHeight)
     let rect =
       CGRect(x: 0, y: y, width: bounds.width, height: settings.hourHeight)
@@ -192,7 +192,7 @@ open class DayScheduleView: UIView {
     delegate?.dayScheduleView(self, appointmentLongPressed: appointment)
   }
 
-  private func calculateSettings() -> DayScheduleViewSettings {
+  private func calculateMetrics() -> DayScheduleViewMetrics {
     let hourStyle = NSMutableParagraphStyle()
     hourStyle.alignment = .right
     let caption1Font = UIFont.preferredFont(forTextStyle: .caption1)
@@ -243,7 +243,7 @@ open class DayScheduleView: UIView {
     )
     let halfHourLineFrame = hourLineFrame.offsetBy(dx: 0.0, dy: 3.0 + timePeriodHeight)
 
-    return DayScheduleViewSettings(
+    return DayScheduleViewMetrics(
       hourAttributes: hourAttributes,
       titleAttributes: titleAttributes,
       locationAttributes: locationAttributes,

@@ -19,12 +19,12 @@
 // SOFTWARE.
 
 final class AppointmentLayer: NSObject {
-  private let settings: DayScheduleViewSettings
+  private let settings: DayScheduleViewMetrics
   let appointment: DayScheduleViewAppointment
   let layer = CALayer()
 
   init(
-    settings: DayScheduleViewSettings,
+    settings: DayScheduleViewMetrics,
     appointment: DayScheduleViewAppointment
     ) {
     self.settings = settings

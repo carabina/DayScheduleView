@@ -23,9 +23,13 @@ final class TimeView: UIView {
   private let timeLayerDelegate = TimeLayerDelegate()
   private let dispatchQueue = DispatchQueue(label: "timeViewQueue", qos: .utility)
   private let highlightLayer = CALayer()
+  private let currentTimeLayer = CALayer()
+  private let currentTimeLayerDelegate = CurrentTimeLayerDelegate()
 
   private var appointmentLayers = [AppointmentLayer]()
   private var timePeriods = Array(repeating: [AppointmentLayer](), count: 48)
+  private var currentMinute = -1
+  private var timer: Timer?
 
   var appointments: [DayScheduleViewAppointment]? {
     didSet {
@@ -48,12 +52,17 @@ final class TimeView: UIView {
     setupView()
   }
 
-  var settings: DayScheduleViewSettings {
+  deinit {
+    timer?.invalidate()
+  }
+
+  var metrics: DayScheduleViewMetrics {
     get {
-      return timeLayerDelegate.settings
+      return timeLayerDelegate.metrics
     }
     set {
-      timeLayerDelegate.settings = newValue
+      timeLayerDelegate.metrics = newValue
+      currentTimeLayerDelegate.metrics = newValue
       setNeedsLayout()
     }
   }
@@ -63,20 +72,34 @@ final class TimeView: UIView {
     timeLayer.setNeedsDisplay()
 
     highlightLayer.frame = CGRect(
-      x: settings.hourSize.width,
+      x: metrics.hourSize.width,
       y: highlightLayer.frame.origin.y,
-      width: bounds.width - settings.hourSize.width,
-      height: settings.timePeriodHeight + 2.0
+      width: bounds.width - metrics.hourSize.width,
+      height: metrics.timePeriodHeight + 2.0
     )
+
+    let currentTime = Calendar.current.dateComponents([.hour, .minute], from: Date())
+    var y = metrics.marginHeight +
+      (CGFloat(currentTime.hour!) * metrics.hourHeight)
+    if currentTime.minute! > 0 && currentTime.minute! < 30 {
+      y += ((CGFloat(currentTime.minute!) / 30.0) * metrics.timePeriodHeight) + 2.0
+    } else if currentTime.minute! == 30 {
+      y += metrics.timePeriodHeight + 3.0
+    } else {
+      y += ((CGFloat(currentTime.minute! - 30) / 30.0) * metrics.timePeriodHeight) + metrics.timePeriodHeight + 5.0
+    }
+
+    y -= (metrics.hourHeight / 2.0)
+    currentTimeLayer.frame = CGRect(x: 0.0, y: y, width: bounds.width, height: metrics.hourHeight)
 
     layoutAppointments()
   }
 
   func time(forPoint point: CGPoint) -> Float {
-    let y = (point.y - settings.marginHeight)
-    let hour = (y / settings.hourHeight).rounded(.down)
-    let difference = y - (hour * settings.hourHeight)
-    return Float(hour + (difference < (settings.hourHeight / 2) ? 0 : 0.5))
+    let y = (point.y - metrics.marginHeight)
+    let hour = (y / metrics.hourHeight).rounded(.down)
+    let difference = y - (hour * metrics.hourHeight)
+    return Float(hour + (difference < (metrics.hourHeight / 2) ? 0 : 0.5))
   }
 
   func hasAppointments(atPoint point: CGPoint) -> Bool {
@@ -103,10 +126,10 @@ final class TimeView: UIView {
     }
 
     let time = self.time(forPoint: point)
-    var y = (CGFloat(time.rounded(.down)) * settings.hourHeight) +
-      settings.marginHeight
+    var y = (CGFloat(time.rounded(.down)) * metrics.hourHeight) +
+      metrics.marginHeight
     if 0.0 != time.remainder(dividingBy: 1.0) {
-      y += 4.0 + settings.timePeriodHeight
+      y += 4.0 + metrics.timePeriodHeight
     }
 
     let oldFrame = highlightLayer.frame
@@ -136,6 +159,14 @@ final class TimeView: UIView {
     highlightLayer.backgroundColor = UIColor.yellow.cgColor
     highlightLayer.opacity = 0.25
     layer.addSublayer(highlightLayer)
+
+    currentTimeLayer.delegate = currentTimeLayerDelegate
+    layer.addSublayer(currentTimeLayer)
+    currentTimeLayer.setNeedsDisplay()
+
+    timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { _ in
+      self.updateCurrentTime()
+    })
   }
 
   private func removeAppointments() {
@@ -152,6 +183,7 @@ final class TimeView: UIView {
     }
 
     highlightLayer.removeFromSuperlayer()
+    currentTimeLayer.removeFromSuperlayer()
 
     self.appointmentLayers = appointments
       .sorted { (l, r) -> Bool in
@@ -167,7 +199,7 @@ final class TimeView: UIView {
       }
       .map { (appointment) -> AppointmentLayer in
         let appointmentLayer =
-          AppointmentLayer(settings: self.settings, appointment: appointment)
+          AppointmentLayer(settings: self.metrics, appointment: appointment)
         self.appointmentLayers.append(appointmentLayer)
         appointmentLayer.layer.frame = layer.bounds
         layer.addSublayer(appointmentLayer.layer)
@@ -175,6 +207,7 @@ final class TimeView: UIView {
     }
 
     layer.addSublayer(highlightLayer)
+    layer.addSublayer(currentTimeLayer)
     setNeedsLayout()
   }
 
@@ -185,7 +218,7 @@ final class TimeView: UIView {
     let endDateComponents = DateComponents(day: 1, minute: -1)
     let endOfDay =
       Calendar.current.date(byAdding: endDateComponents, to: startOfDay)!
-    let totalWidth = bounds.width - settings.hourSize.width
+    let totalWidth = bounds.width - metrics.hourSize.width
     let endTimeComponents = DateComponents(minute: -1)
 
     for appointmentLayer in appointmentLayers {
@@ -199,21 +232,21 @@ final class TimeView: UIView {
         Calendar.current.dateComponents([.hour, .minute], from: startDate)
       let endTime =
         Calendar.current.dateComponents([.hour, .minute], from: endDate)
-      var y = settings.marginHeight +
-        (CGFloat(startTime.hour!) * settings.hourHeight) +
+      var y = metrics.marginHeight +
+        (CGFloat(startTime.hour!) * metrics.hourHeight) +
         2.0
       if startTime.minute! == 30 {
-        y += settings.hourHeight / 2.0
+        y += metrics.hourHeight / 2.0
       }
 
       let duration = CGFloat(DateInterval(start: startDate, end: endDate).duration / 60.0)
-      var height = (duration / 60.0) * settings.hourHeight
+      var height = (duration / 60.0) * metrics.hourHeight
       if (endTime.minute! % 30) == 0 || endTime.minute! == 59 {
         height -= 3.0
       }
 
       appointmentLayer.layer.frame = CGRect(
-        x: settings.hourSize.width,
+        x: metrics.hourSize.width,
         y: y,
         width: totalWidth,
         height: height
@@ -229,7 +262,7 @@ final class TimeView: UIView {
     }
 
     for timePeriod in timePeriods {
-      var x: CGFloat = settings.hourSize.width
+      var x: CGFloat = metrics.hourSize.width
       for appointmentLayer in timePeriod {
         let frame = appointmentLayer.layer.frame
         let width = min(frame.width, (totalWidth - (CGFloat(timePeriod.count - 1) * 2.0)) / CGFloat(timePeriod.count))
@@ -246,5 +279,16 @@ final class TimeView: UIView {
     for appointmentLayer in appointmentLayers {
       appointmentLayer.layer.setNeedsDisplay()
     }
+  }
+
+  private func updateCurrentTime() {
+    let components = Calendar.current.dateComponents([.minute], from: Date())
+    guard components.minute! != currentMinute else {
+      return
+    }
+
+    currentMinute = components.minute!
+    setNeedsLayout()
+    currentTimeLayer.setNeedsDisplay()
   }
 }

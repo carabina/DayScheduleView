@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-struct DayScheduleViewSettings {
+struct DayScheduleViewMetrics {
   let hourAttributes: [NSAttributedStringKey: Any]
   let titleAttributes: [NSAttributedStringKey: Any]
   let locationAttributes: [NSAttributedStringKey: Any]

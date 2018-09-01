@@ -19,7 +19,7 @@
 // SOFTWARE.
 
 final class TimeLayerDelegate: NSObject {
-  var settings: DayScheduleViewSettings!
+  var metrics: DayScheduleViewMetrics!
 }
 
 extension TimeLayerDelegate: CALayerDelegate {
@@ -54,7 +54,7 @@ extension TimeLayerDelegate: CALayerDelegate {
     var y: CGFloat = 0.0
     for hour in hours {
       draw(hour: hour, at: y, in: ctx)
-      y += settings.hourHeight
+      y += metrics.hourHeight
     }
 
     drawHourLine(hour: "12 AM", at: y, in: ctx)
@@ -62,17 +62,17 @@ extension TimeLayerDelegate: CALayerDelegate {
 
   private func draw(hour: String, at originY: CGFloat, in ctx: CGContext) {
     drawHourLine(hour: hour, at: originY, in: ctx)
-    let halfHourLineFrame = settings.halfHourLineFrame.offsetBy(dx: 0.0, dy: originY)
+    let halfHourLineFrame = metrics.halfHourLineFrame.offsetBy(dx: 0.0, dy: originY)
     ctx.fill(halfHourLineFrame)
   }
 
   private func drawHourLine(hour: String, at originY: CGFloat, in ctx: CGContext) {
     UIGraphicsPushContext(ctx)
-    let hourFrame = settings.hourFrame.offsetBy(dx: 0.0, dy: originY)
-    NSString(string: hour).draw(in: hourFrame, withAttributes: settings.hourAttributes)
+    let hourFrame = metrics.hourFrame.offsetBy(dx: 0.0, dy: originY)
+    NSString(string: hour).draw(in: hourFrame, withAttributes: metrics.hourAttributes)
     UIGraphicsPopContext()
 
-    let hourLineFrame = settings.hourLineFrame.offsetBy(dx: 0.0, dy: originY)
+    let hourLineFrame = metrics.hourLineFrame.offsetBy(dx: 0.0, dy: originY)
     ctx.fill(hourLineFrame)
   }
 }
