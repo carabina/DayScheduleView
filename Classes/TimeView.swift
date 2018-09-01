@@ -91,6 +91,7 @@ final class TimeView: UIView {
 
     y -= (metrics.hourHeight / 2.0)
     currentTimeLayer.frame = CGRect(x: 0.0, y: y, width: bounds.width, height: metrics.hourHeight)
+    currentTimeLayer.setNeedsDisplay()
 
     layoutAppointments()
   }

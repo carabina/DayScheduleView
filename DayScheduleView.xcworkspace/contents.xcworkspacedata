@@ -4,9 +4,6 @@
    <Group
       location = "container:Playgrounds"
       name = "Playgrounds">
-      <FileRef
-         location = "group:Test.playground">
-      </FileRef>
    </Group>
    <FileRef
       location = "group:DayScheduleView/DayScheduleView.xcodeproj">
