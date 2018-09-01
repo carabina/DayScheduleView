@@ -119,6 +119,14 @@ open class DayScheduleView: UIView {
     return timeView.hasAppointments(atPoint: point)
   }
 
+  public func highlightTimePeriod(atPoint point: CGPoint) {
+    timeView.highlightTimePeriod(atPoint: point)
+  }
+
+  public func hideHighlight() {
+    timeView.hideHighlight()
+  }
+
   private func setupView() {
     setupScrollView()
     setupTimeView()
@@ -149,6 +157,7 @@ open class DayScheduleView: UIView {
 
   @objc private func handleTap(_ sender: UITapGestureRecognizer) {
     let point = sender.location(in: timeView)
+    highlightTimePeriod(atPoint: point)
     guard let appointment = timeView.appointment(atPoint: point) else {
       return
     }

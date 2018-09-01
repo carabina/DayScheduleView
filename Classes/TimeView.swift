@@ -22,6 +22,7 @@ final class TimeView: UIView {
   private let timeLayer = CALayer()
   private let timeLayerDelegate = TimeLayerDelegate()
   private let dispatchQueue = DispatchQueue(label: "timeViewQueue", qos: .utility)
+  private let highlightLayer = CALayer()
 
   private var appointmentLayers = [AppointmentLayer]()
   private var timePeriods = Array(repeating: [AppointmentLayer](), count: 48)
@@ -61,6 +62,13 @@ final class TimeView: UIView {
     timeLayer.frame = layer.bounds
     timeLayer.setNeedsDisplay()
 
+    highlightLayer.frame = CGRect(
+      x: settings.hourSize.width,
+      y: highlightLayer.frame.origin.y,
+      width: bounds.width - settings.hourSize.width,
+      height: settings.timePeriodHeight + 2.0
+    )
+
     layoutAppointments()
   }
 
@@ -89,10 +97,45 @@ final class TimeView: UIView {
     return nil
   }
 
+  func highlightTimePeriod(atPoint point: CGPoint) {
+    guard !highlightLayer.frame.contains(point) else {
+      return
+    }
+
+    let time = self.time(forPoint: point)
+    var y = (CGFloat(time.rounded(.down)) * settings.hourHeight) +
+      settings.marginHeight
+    if 0.0 != time.remainder(dividingBy: 1.0) {
+      y += 4.0 + settings.timePeriodHeight
+    }
+
+    let oldFrame = highlightLayer.frame
+    highlightLayer.frame = CGRect(
+      x: oldFrame.origin.x,
+      y: y,
+      width: oldFrame.width,
+      height: oldFrame.height
+    )
+    if highlightLayer.isHidden {
+      highlightLayer.isHidden = false
+    }
+
+    highlightLayer.setNeedsDisplay()
+  }
+
+  func hideHighlight() {
+    highlightLayer.isHidden = false
+  }
+
   private func setupView() {
     timeLayer.delegate = timeLayerDelegate
     timeLayer.frame = layer.bounds
     layer.addSublayer(timeLayer)
+
+    highlightLayer.isHidden = true
+    highlightLayer.backgroundColor = UIColor.yellow.cgColor
+    highlightLayer.opacity = 0.25
+    layer.addSublayer(highlightLayer)
   }
 
   private func removeAppointments() {
@@ -107,6 +150,8 @@ final class TimeView: UIView {
     guard let appointments = appointments else {
       return
     }
+
+    highlightLayer.removeFromSuperlayer()
 
     self.appointmentLayers = appointments
       .sorted { (l, r) -> Bool in
@@ -129,6 +174,7 @@ final class TimeView: UIView {
         return appointmentLayer
     }
 
+    layer.addSublayer(highlightLayer)
     setNeedsLayout()
   }
 
