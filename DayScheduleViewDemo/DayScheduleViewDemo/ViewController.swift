@@ -95,4 +95,11 @@ extension ViewController: DayScheduleViewDelegate {
     ) {
     print("TAPPED: \(appointment.title)")
   }
+
+  func dayScheduleView(
+    _ dayScheduleView: DayScheduleView,
+    appointmentLongPressed appointment: DayScheduleViewAppointment
+    ) {
+    print("LONG PRESSED: \(appointment.title)")
+  }
 }

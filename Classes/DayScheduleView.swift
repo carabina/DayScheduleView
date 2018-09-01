@@ -142,6 +142,9 @@ open class DayScheduleView: UIView {
 
     let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
     timeView.addGestureRecognizer(tapGestureRecognizer)
+
+    let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
+    timeView.addGestureRecognizer(longPressGestureRecognizer)
   }
 
   @objc private func handleTap(_ sender: UITapGestureRecognizer) {
@@ -151,6 +154,19 @@ open class DayScheduleView: UIView {
     }
 
     delegate?.dayScheduleView(self, appointmentTapped: appointment)
+  }
+
+  @objc private func handleLongPress(_ sender: UILongPressGestureRecognizer) {
+    guard UIGestureRecognizerState.began == sender.state else {
+      return
+    }
+    
+    let point = sender.location(in: timeView)
+    guard let appointment = timeView.appointment(atPoint: point) else {
+      return
+    }
+
+    delegate?.dayScheduleView(self, appointmentLongPressed: appointment)
   }
 
   private func calculateSettings() -> DayScheduleViewSettings {
