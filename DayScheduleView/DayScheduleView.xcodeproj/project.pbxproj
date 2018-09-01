@@ -67,7 +67,6 @@
 		EF73BCC52117FD48001BEBE1 /* iOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSTests.swift; sourceTree = "<group>"; };
 		EF73BCC72117FD48001BEBE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EF73BCF42118004C001BEBE1 /* DayScheduleView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DayScheduleView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EF73BCF52118004C001BEBE1 /* iOS copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "iOS copy-Info.plist"; path = "/Users/michaelcollins/Projects/nakedsoftware/DayScheduleView/DayScheduleView/iOS copy-Info.plist"; sourceTree = "<absolute>"; };
 		EF73BCF7211807EF001BEBE1 /* DayScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayScheduleView.swift; sourceTree = "<group>"; };
 		EF73BCFB21180ED1001BEBE1 /* TimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeView.swift; sourceTree = "<group>"; };
 		EF73BCFE21188C4B001BEBE1 /* DayScheduleViewStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayScheduleViewStyleKit.swift; sourceTree = "<group>"; };
@@ -119,7 +118,6 @@
 				EF73BCB92117FD48001BEBE1 /* iOS */,
 				EF73BCC42117FD48001BEBE1 /* iOSTests */,
 				EF73BCB82117FD48001BEBE1 /* Products */,
-				EF73BCF52118004C001BEBE1 /* iOS copy-Info.plist */,
 				EF4052962127823D00A0AAD9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -742,7 +740,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "iOS copy-Info.plist";
+				INFOPLIST_FILE = iOS/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -819,7 +817,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "iOS copy-Info.plist";
+				INFOPLIST_FILE = iOS/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
