@@ -84,7 +84,8 @@ class ViewController: UIViewController {
 
   private func doAddEventStoreDataSource() {
     eventStoreDataSource = EKEventStoreDataSource(eventStore: eventStore)
-    dayScheduleView.dataSource = eventStoreDataSource
+    dayScheduleView.dataSource =
+      DayScheduleViewAggregateDataSource(dataSources: [eventStoreDataSource!])
   }
 }
 

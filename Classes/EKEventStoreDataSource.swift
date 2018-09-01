@@ -48,8 +48,8 @@ open class EKEventStoreDataSource: DayScheduleViewDataSource {
 
   public func dayScheduleView(
     _ dayScheduleView: DayScheduleView,
-    appointmentsWithStart startDate: Date,
-    end endDate: Date) -> [DayScheduleViewAppointment]? {
+    appointmentsStarting startDate: Date,
+    ending endDate: Date) -> [DayScheduleViewAppointment]? {
     let predicate = eventStore.predicateForEvents(
       withStart: startDate,
       end: endDate,

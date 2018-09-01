@@ -244,7 +244,7 @@ open class DayScheduleView: UIView {
       let startDate = Calendar.current.startOfDay(for: self.date)
       let endDateComponents = DateComponents(day: 1)
       let endDate = Calendar.current.date(byAdding: endDateComponents, to: startDate)!
-      let appointments = dataSource.dayScheduleView(self, appointmentsWithStart: startDate, end: endDate)
+      let appointments = dataSource.dayScheduleView(self, appointmentsStarting: startDate, ending: endDate)
       DispatchQueue.main.async {
         self.timeView.appointments = appointments
       }

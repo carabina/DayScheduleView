@@ -38,7 +38,7 @@ public protocol DayScheduleViewDataSource: AnyObject {
   ///   may be returned.
   func dayScheduleView(
     _ dayScheduleView: DayScheduleView,
-    appointmentsWithStart startDate: Date,
-    end endDate: Date
+    appointmentsStarting startDate: Date,
+    ending endDate: Date
     ) -> [DayScheduleViewAppointment]?
 }
