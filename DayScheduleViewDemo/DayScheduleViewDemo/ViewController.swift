@@ -44,6 +44,8 @@ class ViewController: UIViewController {
     super.viewDidAppear(animated)
 
     NotificationCenter.default.addObserver(self, selector: #selector(eventStoreChanged(_:)), name: .EKEventStoreChanged, object: nil)
+
+    dayScheduleView.scrollToCurrentTime(animated: true)
   }
 
   override func viewDidDisappear(_ animated: Bool) {

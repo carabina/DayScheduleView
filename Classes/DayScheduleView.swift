@@ -127,6 +127,20 @@ open class DayScheduleView: UIView {
     timeView.hideHighlight()
   }
 
+  public func scroll(toTime time: Float, animated: Bool) {
+    let settings = timeView.settings
+    let y = settings.marginHeight + (CGFloat(time) * settings.hourHeight)
+    let rect =
+      CGRect(x: 0, y: y, width: bounds.width, height: settings.hourHeight)
+    scrollView.scrollRectToVisible(rect, animated: animated)
+  }
+
+  public func scrollToCurrentTime(animated: Bool) {
+    let components = Calendar.current.dateComponents([.hour, .minute], from: Date())
+    let time: Float = Float(components.hour!) + (components.minute! < 30 ? 0.0 : 0.5)
+    scroll(toTime: time, animated: animated)
+  }
+
   private func setupView() {
     setupScrollView()
     setupTimeView()
