@@ -5,16 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.1.0] - 2018-09-01
+
+Welcome to the first release of [DayScheduleView](https://github.com/nakedsoftware/DayScheduleView).
+DayScheduleView is a custom view for iOS applications that presents a single
+day as 30 minute time periods. DayScheduleView can integrate with EventKit or
+custom appointment data sources to display scheduled appointments or events
+throughout the day. DayScheduleView has support for tapping or long touches
+of events, and provides support for implementing drag-and-drop operations with
+visual feedback during a drop operation.
 
 ### Added
 
-### Changed
-
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### Security
+* Created the `DayScheduleView` class with the initial API.
+* Created the `DayScheduleViewAppointment` protocol for exposing appointment
+  or event information to `DayScheduleView`.
+* Created the `DayScheduleViewDataSource` protocol for allowing
+  `DayScheduleView` to query and retrieve appointments for a day from a data
+  source.
+* Created the `DayScheduleViewDelegate` protocol and added events to notify
+  the delegate if an appointment is tapped or long pressed.
+* Created the `EKEventStoreDataSource` class that adapts the
+  `DayScheduleViewDataSource` protocol to an EventKit `EKEventStore` object.
+* Created the `DayScheduleViewAggregateDataSource` class that loads
+  appointments from multiple data sources for display in the
+  `DayScheduleView` view.
+* Add support for integrating `DayScheduleView` into an application using
+  [Carthage](https://github.com/carthage/carthage). Support is provided for
+  both dynamic and static iOS frameworks.
+* Add support for integrating `DayScheduleView` into an application using
+  CocoaPods.

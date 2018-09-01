@@ -225,7 +225,8 @@ open class DayScheduleView: UIView {
     let locationSize = NSString(string: "Sample Location").size(withAttributes: locationAttributes)
     let timePeriodHeight = max(40.0, (titleSize.height + locationSize.height).rounded(.up) + 8)
     let scheduleHeight = (2 * marginHeight) + 25.0 + 24.0 + 96.0 + (48 * timePeriodHeight)
-    let contentSize = CGSize(width: bounds.width, height: scheduleHeight)
+    let contentWidth = bounds.width - safeAreaInsets.left - safeAreaInsets.right
+    let contentSize = CGSize(width: contentWidth, height: scheduleHeight)
     let hourHeight = (2 * timePeriodHeight) + 6.0
 
     let hourOriginY = marginHeight - halfHourHeight
