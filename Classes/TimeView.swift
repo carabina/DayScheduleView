@@ -107,7 +107,6 @@ final class TimeView: UIView {
   func hasAppointments(atPoint point: CGPoint) -> Bool {
     let time = self.time(forPoint: point)
     let timePeriod = Int(time * 2.0)
-    print("point = \(point), time = \(time), timePeriod = \(timePeriod), count = \(timePeriods[timePeriod].count)")
     return !timePeriods[timePeriod].isEmpty
   }
 
