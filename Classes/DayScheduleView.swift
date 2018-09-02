@@ -176,7 +176,7 @@ open class DayScheduleView: UIView {
       return
     }
 
-    delegate?.dayScheduleView(self, appointmentTapped: appointment)
+    delegate?.dayScheduleView?(self, appointmentTapped: appointment)
   }
 
   @objc private func handleLongPress(_ sender: UILongPressGestureRecognizer) {
@@ -189,7 +189,7 @@ open class DayScheduleView: UIView {
       return
     }
 
-    delegate?.dayScheduleView(self, appointmentLongPressed: appointment)
+    delegate?.dayScheduleView?(self, appointmentLongPressed: appointment)
   }
 
   private func calculateMetrics() -> DayScheduleViewMetrics {
