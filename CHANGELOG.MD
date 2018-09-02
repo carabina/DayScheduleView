@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2018-09-02
+
+### Changed
+
+* I added `@objc` attributes to the `DayScheduleViewDelegate` protocol. It
+  is necessary to expose `DayScheduleViewDelegate` to Objective-C for another
+  project that is adding RxSwift support to `DayScheduleView`.
+* I added the `@objc` attribute to the `DayScheduleViewAppointment` protocol.
+  This was necessary because `DayScheduleViewAppointment` is used as a
+  parameter type for the notifications in the `DayScheduleViewDelegate`
+  protocol.
+* I converted `DayScheduleViewAppointmentEKEventAdapter` from a `struct` to a
+  `class`. This was necessary because `DayScheduleViewAppointment` was exposed
+  to Objective-C and Objective-C can't interop with Swift structs.
+
 ## [0.1.0] - 2018-09-01
 
 Welcome to the first release of [DayScheduleView](https://github.com/nakedsoftware/DayScheduleView).
