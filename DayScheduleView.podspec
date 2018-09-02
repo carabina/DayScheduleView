@@ -21,7 +21,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "DayScheduleView"
-  s.version      = "0.2.0"
+  s.version      = "0.3.0"
   s.summary      = "Single day calendar or schedule view with EventKit and drag-and-drop support."
   s.description  = <<-DESC
   DayScheduleView is a custom control for iOS applications. DayScheduleView

@@ -30,7 +30,7 @@
   ///   - dayScheduleView: The `DayScheduleView` view that the appointment was
   ///     tapped in.
   ///   - appointment: The appointment that was tapped.
-  @objc func dayScheduleView(
+  @objc optional func dayScheduleView(
     _ dayScheduleView: DayScheduleView,
     appointmentTapped appointment: DayScheduleViewAppointment
   )
@@ -41,22 +41,8 @@
   ///   - dayScheduleView: The `DayScheduleView` view that the appointment was
   ///     pressed in.
   ///   - appointment: The appointment that was long pressed.
-  @objc func dayScheduleView(
+  @objc optional func dayScheduleView(
     _ dayScheduleView: DayScheduleView,
     appointmentLongPressed appointment: DayScheduleViewAppointment
   )
-}
-
-extension DayScheduleViewDelegate {
-  public func dayScheduleView(
-    _ dayScheduleView: DayScheduleView,
-    appointmentTapped appointment: DayScheduleViewAppointment
-    ) {
-  }
-
-  public func dayScheduleView(
-    _ dayScheduleView: DayScheduleView,
-    appointmentLongPressed appointment: DayScheduleViewAppointment
-    ) {
-  }
 }
