@@ -22,7 +22,7 @@
 /// as the result of user interaction with the appointments or the schedule.
 ///
 /// - since: 1.0
-public protocol DayScheduleViewDelegate: AnyObject {
+@objc public protocol DayScheduleViewDelegate: NSObjectProtocol {
   /// Notifies the delegate that an appointment was tapped in the day schedule
   /// view.
   ///
@@ -30,7 +30,7 @@ public protocol DayScheduleViewDelegate: AnyObject {
   ///   - dayScheduleView: The `DayScheduleView` view that the appointment was
   ///     tapped in.
   ///   - appointment: The appointment that was tapped.
-  func dayScheduleView(
+  @objc func dayScheduleView(
     _ dayScheduleView: DayScheduleView,
     appointmentTapped appointment: DayScheduleViewAppointment
   )
@@ -41,7 +41,7 @@ public protocol DayScheduleViewDelegate: AnyObject {
   ///   - dayScheduleView: The `DayScheduleView` view that the appointment was
   ///     pressed in.
   ///   - appointment: The appointment that was long pressed.
-  func dayScheduleView(
+  @objc func dayScheduleView(
     _ dayScheduleView: DayScheduleView,
     appointmentLongPressed appointment: DayScheduleViewAppointment
   )
