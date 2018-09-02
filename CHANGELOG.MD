@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.3.2] - 2018-09-02
+
+### Fixed
+
+* I fixed a bug in `TimeView.hasAppointment(atPoint:)`. This method was not
+  correctly calculating the time period and was returning the incorrect
+  result as to whether other appointments existed in the time period
+  represented by the point. I corrected the logic so that the correct result
+  is being returned.
+
 ## [0.3.1] - 2018-09-02
 
 ### Fixed
