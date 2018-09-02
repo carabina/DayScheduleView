@@ -96,7 +96,6 @@ open class DayScheduleView: UIView {
   /// schedule view.
   public func invalidate() {
     loadAppointments()
-    setNeedsDisplay()
   }
 
   /// For the specified point, calculates the time period that the point belongs
