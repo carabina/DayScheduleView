@@ -24,7 +24,7 @@ import EventKit
 /// objects to be displayed in the `DayScheduleView` view.
 ///
 /// - Since: 1.0
-public struct DayScheduleViewAppointmentEKEventAdapter: DayScheduleViewAppointment {
+public class DayScheduleViewAppointmentEKEventAdapter: DayScheduleViewAppointment {
   private let event: EKEvent
 
   /// Initializes and returns an adapter for the specified event.

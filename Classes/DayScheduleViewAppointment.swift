@@ -24,7 +24,7 @@
 /// present the appointment in the schedule.
 ///
 /// - since: 1.0
-public protocol DayScheduleViewAppointment {
+@objc public protocol DayScheduleViewAppointment {
   /// The color to use when displaying the appointment in the schedule.
   var color: UIColor { get }
 
