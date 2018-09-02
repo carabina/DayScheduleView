@@ -149,7 +149,7 @@ final class TimeView: UIView {
   }
 
   func hideHighlight() {
-    highlightLayer.isHidden = false
+    highlightLayer.isHidden = true
   }
 
   private func setupView() {
