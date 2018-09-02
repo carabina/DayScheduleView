@@ -35,6 +35,7 @@ final class TimeView: UIView {
     didSet {
       removeAppointments()
       loadAppointments()
+      setNeedsDisplay()
     }
   }
 
@@ -105,7 +106,7 @@ final class TimeView: UIView {
 
   func hasAppointments(atPoint point: CGPoint) -> Bool {
     let time = self.time(forPoint: point)
-    let timePeriod = Int(time.rounded(.toNearestOrAwayFromZero))
+    let timePeriod = Int((time * 2.0).truncatingRemainder(dividingBy: 1.0))
     return !timePeriods[timePeriod].isEmpty
   }
 
@@ -148,7 +149,7 @@ final class TimeView: UIView {
   }
 
   func hideHighlight() {
-    highlightLayer.isHidden = false
+    highlightLayer.isHidden = true
   }
 
   private func setupView() {
