@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2018-09-02
+
+### Changed
+
+* I changed the interface for `DayScheduleViewDelegate` to make the
+  notification methods optional. It did not make sense to have them always
+  required if a user is not interested in either tapping appointments or
+  long presses.
+  
 ## [0.2.0] - 2018-09-02
 
 ### Changed
