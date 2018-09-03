@@ -51,6 +51,12 @@ open class DayScheduleView: UIView {
 
   public weak var delegate: DayScheduleViewDelegate?
 
+  public var log: DayScheduleViewLogger = DayScheduleViewNullLogger() {
+    didSet {
+      timeView.log = log
+    }
+  }
+
   /// Initializes and returns a day schedule view object having the given frame.
   ///
   /// - Parameter frame: A rectangle specifying the initial location and size
@@ -246,6 +252,18 @@ open class DayScheduleView: UIView {
       height: 1.0
     )
     let halfHourLineFrame = hourLineFrame.offsetBy(dx: 0.0, dy: 3.0 + timePeriodHeight)
+
+    log.verbose("hourAttributes = \(hourAttributes)")
+    log.verbose("titleAttributes = \(titleAttributes)")
+    log.verbose("locationAttributes = \(locationAttributes)")
+    log.verbose("contentSize = \(contentSize)")
+    log.verbose("hourSize = \(hourSize)")
+    log.verbose("marginHeight = \(marginHeight)")
+    log.verbose("timePeriodHeight = \(timePeriodHeight)")
+    log.verbose("hourHeight = \(hourHeight)")
+    log.verbose("hourFrame = \(hourFrame)")
+    log.verbose("hourLineFrame = \(hourLineFrame)")
+    log.verbose("halfHourLineFrame = \(halfHourLineFrame)")
 
     return DayScheduleViewMetrics(
       hourAttributes: hourAttributes,

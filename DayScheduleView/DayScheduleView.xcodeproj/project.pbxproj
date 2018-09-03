@@ -35,6 +35,9 @@
 		EF73BD0021188C4B001BEBE1 /* DayScheduleViewStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF73BCFE21188C4B001BEBE1 /* DayScheduleViewStyleKit.swift */; };
 		EF73BD022120AB49001BEBE1 /* DayScheduleViewAppointment.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF73BD012120AB49001BEBE1 /* DayScheduleViewAppointment.swift */; };
 		EF73BD032120AB49001BEBE1 /* DayScheduleViewAppointment.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF73BD012120AB49001BEBE1 /* DayScheduleViewAppointment.swift */; };
+		EF979B75213D967B00C390F5 /* DayScheduleViewLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF979B74213D967B00C390F5 /* DayScheduleViewLogger.swift */; };
+		EF979B77213D96DD00C390F5 /* DayScheduleViewNullLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF979B76213D96DD00C390F5 /* DayScheduleViewNullLogger.swift */; };
+		EF979B79213D973F00C390F5 /* DayScheduleViewStandardOutputLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF979B78213D973F00C390F5 /* DayScheduleViewStandardOutputLogger.swift */; };
 		EFAFB990211B7CE2004328F7 /* DayScheduleViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAFB98F211B7CE2004328F7 /* DayScheduleViewDelegate.swift */; };
 		EFAFB992211B7D39004328F7 /* DayScheduleViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAFB991211B7D39004328F7 /* DayScheduleViewDataSource.swift */; };
 		EFAFB993211B7D39004328F7 /* DayScheduleViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAFB991211B7D39004328F7 /* DayScheduleViewDataSource.swift */; };
@@ -71,6 +74,9 @@
 		EF73BCFB21180ED1001BEBE1 /* TimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeView.swift; sourceTree = "<group>"; };
 		EF73BCFE21188C4B001BEBE1 /* DayScheduleViewStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayScheduleViewStyleKit.swift; sourceTree = "<group>"; };
 		EF73BD012120AB49001BEBE1 /* DayScheduleViewAppointment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayScheduleViewAppointment.swift; sourceTree = "<group>"; };
+		EF979B74213D967B00C390F5 /* DayScheduleViewLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayScheduleViewLogger.swift; sourceTree = "<group>"; };
+		EF979B76213D96DD00C390F5 /* DayScheduleViewNullLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayScheduleViewNullLogger.swift; sourceTree = "<group>"; };
+		EF979B78213D973F00C390F5 /* DayScheduleViewStandardOutputLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayScheduleViewStandardOutputLogger.swift; sourceTree = "<group>"; };
 		EFAFB98F211B7CE2004328F7 /* DayScheduleViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayScheduleViewDelegate.swift; sourceTree = "<group>"; };
 		EFAFB991211B7D39004328F7 /* DayScheduleViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayScheduleViewDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -166,6 +172,9 @@
 				EF186EE82139ABD400969587 /* DayScheduleViewAppointmentEKEventAdapter.swift */,
 				EF186EEB213A133900969587 /* DayScheduleViewAggregateDataSource.swift */,
 				EF186EEE213A3A9100969587 /* CurrentTimeLayerDelegate.swift */,
+				EF979B74213D967B00C390F5 /* DayScheduleViewLogger.swift */,
+				EF979B76213D96DD00C390F5 /* DayScheduleViewNullLogger.swift */,
+				EF979B78213D973F00C390F5 /* DayScheduleViewStandardOutputLogger.swift */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -316,8 +325,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF979B77213D96DD00C390F5 /* DayScheduleViewNullLogger.swift in Sources */,
 				EF73BCF8211807EF001BEBE1 /* DayScheduleView.swift in Sources */,
 				EF4052A02127832C00A0AAD9 /* EKEventStoreDataSource.swift in Sources */,
+				EF979B75213D967B00C390F5 /* DayScheduleViewLogger.swift in Sources */,
 				EFAFB990211B7CE2004328F7 /* DayScheduleViewDelegate.swift in Sources */,
 				EF186EEC213A133900969587 /* DayScheduleViewAggregateDataSource.swift in Sources */,
 				EF73BCFC21180ED1001BEBE1 /* TimeView.swift in Sources */,
@@ -326,6 +337,7 @@
 				EF186EE92139ABD400969587 /* DayScheduleViewAppointmentEKEventAdapter.swift in Sources */,
 				EF4052CD2127B0FD00A0AAD9 /* TimeLayerDelegate.swift in Sources */,
 				EF4052D02128906F00A0AAD9 /* DayScheduleViewMetrics.swift in Sources */,
+				EF979B79213D973F00C390F5 /* DayScheduleViewStandardOutputLogger.swift in Sources */,
 				EF73BD022120AB49001BEBE1 /* DayScheduleViewAppointment.swift in Sources */,
 				EFAFB992211B7D39004328F7 /* DayScheduleViewDataSource.swift in Sources */,
 				EF73BCFF21188C4B001BEBE1 /* DayScheduleViewStyleKit.swift in Sources */,

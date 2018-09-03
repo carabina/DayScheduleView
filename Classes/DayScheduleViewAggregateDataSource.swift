@@ -25,6 +25,8 @@
 open class DayScheduleViewAggregateDataSource: DayScheduleViewDataSource {
   private let dataSources: [DayScheduleViewDataSource]
 
+  public var log: DayScheduleViewLogger = DayScheduleViewNullLogger()
+
   /// Initializes and returns a data source that aggregates and returns
   /// appointments from all of the specified data sources.
   ///
@@ -50,6 +52,7 @@ open class DayScheduleViewAggregateDataSource: DayScheduleViewDataSource {
     appointmentsStarting startDate: Date,
     ending endDate: Date
     ) -> [DayScheduleViewAppointment]? {
+    log.debug("Querying appontments between \(startDate) and \(endDate) from all data sources")
     var appointments = [DayScheduleViewAppointment]()
     for dataSource in dataSources {
       let dataSourceAppointments = dataSource.dayScheduleView(
@@ -61,6 +64,7 @@ open class DayScheduleViewAggregateDataSource: DayScheduleViewDataSource {
       }
     }
 
+    log.debug("Returning \(appointments.count) appointments")
     return appointments
   }
 }

@@ -22,6 +22,7 @@ final class CurrentTimeLayerDelegate: NSObject {
   private let dateFormatter = DateFormatter()
 
   var metrics: DayScheduleViewMetrics!
+  var log: DayScheduleViewLogger = DayScheduleViewNullLogger()
 
   override init() {
     super.init()

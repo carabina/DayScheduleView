@@ -32,6 +32,8 @@ open class EKEventStoreDataSource: DayScheduleViewDataSource {
   private let eventStore: EKEventStore
   private let calendars: [EKCalendar]?
 
+  public var log: DayScheduleViewLogger = DayScheduleViewNullLogger()
+
   /// Initializes and returns a data source object that loads events from the
   /// event store and from specific calendars.
   ///
@@ -50,12 +52,15 @@ open class EKEventStoreDataSource: DayScheduleViewDataSource {
     _ dayScheduleView: DayScheduleView,
     appointmentsStarting startDate: Date,
     ending endDate: Date) -> [DayScheduleViewAppointment]? {
+    log.debug("Querying events between \(startDate) and \(endDate) from EKEventStore")
     let predicate = eventStore.predicateForEvents(
       withStart: startDate,
       end: endDate,
       calendars: calendars
     )
-    return eventStore.events(matching: predicate)
+    let appointments = eventStore.events(matching: predicate)
       .map { DayScheduleViewAppointmentEKEventAdapter(event: $0) }
+    log.debug("Returning \(appointments.count) appointments")
+    return appointments
   }
 }
