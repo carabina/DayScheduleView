@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2018-09-03
+
+### Added
+
+* Created the `DayScheduleViewLogger` protocol. `DayScheduleViewLoggger` is
+  used by `DayScheduleView` and other types to output diagnostic messages from
+  `DayScehduleView` at runtime. These messages can be used to monitor how
+  `DayScheduleView` works and to diagnose and fix runtime errors found in a
+  consuming application.
+* Created the `DayScheduleViewNullLogger` structure type.
+  `DayScheduleViewNullLogger` is used as the default implementation of the
+  `DayScheduleViewLogger` protocol and does not output any messages at runtime.
+* Created the `DayScheduleViewStandardOutputLogger` structure type.
+  `DayScheduleViewStandardOutputLogger` will output log messages to standard
+  output at runtime, based on the configured logging level.
+* I added the `log` property to `DayScheduleView`. The `log` property allows
+  a user to set the `DayScheduleViewLogger` instance that `DayScheduleView`
+  should use at runtime to output log messages.
+* I added the `log` property to `EKEventStoreDataSource`. The `log` property
+  allows a user to set the `DayScheduleViewLogger` instance that
+  `EKEventStoreDataSource` should use at runtime to output log messages.
+* I added the `log` property to `DayScheduleViewAggregateDataSource`. The
+  `log` property allows a user to set the `DayScheduleViewLogger` instance
+  that `DayScheduleViewAggregateDataSource` should use at runtime to output
+  log messages.
+  
 ## [0.3.2] - 2018-09-02
 
 ### Fixed
