@@ -23,6 +23,8 @@ final class AppointmentLayer: NSObject {
   let appointment: DayScheduleViewAppointment
   let layer = CALayer()
 
+  var log: DayScheduleViewLogger = DayScheduleViewNullLogger()
+  
   init(
     settings: DayScheduleViewMetrics,
     appointment: DayScheduleViewAppointment

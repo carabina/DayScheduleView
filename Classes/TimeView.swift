@@ -41,6 +41,16 @@ final class TimeView: UIView {
 
   var date = Date()
 
+  var log: DayScheduleViewLogger = DayScheduleViewNullLogger() {
+    didSet {
+      timeLayerDelegate.log = log
+      currentTimeLayerDelegate.log = log
+      for appointmentLayer in appointmentLayers {
+        appointmentLayer.log = log
+      }
+    }
+  }
+
   override init(frame: CGRect) {
     super.init(frame: frame)
 
@@ -202,6 +212,7 @@ final class TimeView: UIView {
       .map { (appointment) -> AppointmentLayer in
         let appointmentLayer =
           AppointmentLayer(settings: self.metrics, appointment: appointment)
+        appointmentLayer.log = self.log
         self.appointmentLayers.append(appointmentLayer)
         appointmentLayer.layer.frame = layer.bounds
         layer.addSublayer(appointmentLayer.layer)

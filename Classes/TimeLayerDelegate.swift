@@ -20,6 +20,7 @@
 
 final class TimeLayerDelegate: NSObject {
   var metrics: DayScheduleViewMetrics!
+  var log: DayScheduleViewLogger = DayScheduleViewNullLogger()
 }
 
 extension TimeLayerDelegate: CALayerDelegate {
