@@ -38,7 +38,11 @@
   var startDate: Date { get }
 
   /// The date and time when the appointment ends.
+  /// 
   /// The end date is exclusive of the time of the appointment. For example,
   /// an end time of 11:00 means that the appoitment ends at 10:59.
   var endDate: Date { get }
+
+  /// `true` is the appointment spans the entire day.
+  var isAllDay: Bool { get }
 }
