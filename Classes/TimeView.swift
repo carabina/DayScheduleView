@@ -122,7 +122,7 @@ final class TimeView: UIView {
     let timePeriod = Int(time * 2.0)
     var appointments = timePeriods[timePeriod]
     if excludeAllDayAppointments {
-      appointments = appointments.filter { !$0.appointment.isAllDay }
+      appointments = appointments.filter { $0.appointment.isAllDay == false }
     }
 
     return appointments.isEmpty

@@ -35,6 +35,7 @@ class ViewController: UIViewController {
     super.viewDidLoad()
 
     dayScheduleView.delegate = self
+    dayScheduleView.log = DayScheduleViewStandardOutputLogger(logLevel: .verbose)
 
     eventStore = EKEventStore()
     addEventStoreDataSource()
@@ -86,6 +87,7 @@ class ViewController: UIViewController {
 
   private func doAddEventStoreDataSource() {
     eventStoreDataSource = EKEventStoreDataSource(eventStore: eventStore)
+    eventStoreDataSource!.log = DayScheduleViewStandardOutputLogger(logLevel: .verbose)
     dayScheduleView.dataSource =
       DayScheduleViewAggregateDataSource(dataSources: [eventStoreDataSource!])
   }

@@ -61,6 +61,10 @@ open class EKEventStoreDataSource: DayScheduleViewDataSource {
     let appointments = eventStore.events(matching: predicate)
       .map { DayScheduleViewAppointmentEKEventAdapter(event: $0) }
     log.debug("Returning \(appointments.count) appointments")
+    for appointment in appointments {
+      log.verbose("\(appointment.title): \(appointment.isAllDay)")
+    }
+    
     return appointments
   }
 }
