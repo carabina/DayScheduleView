@@ -122,10 +122,10 @@ final class TimeView: UIView {
     let timePeriod = Int(time * 2.0)
     var appointments = timePeriods[timePeriod]
     if excludeAllDayAppointments {
-      appointments = appointments.filter { $0.appointment.isAllDay == false }
+      appointments = appointments.filter { !$0.appointment.isAllDay }
     }
 
-    return appointments.isEmpty
+    return !appointments.isEmpty
   }
 
   func appointment(atPoint point: CGPoint) -> DayScheduleViewAppointment? {
