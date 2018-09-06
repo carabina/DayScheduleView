@@ -120,10 +120,16 @@ open class DayScheduleView: UIView {
     return timeView.time(forPoint: timeViewPoint)
   }
 
-  public func hasAppointments(atPoint point: CGPoint) -> Bool {
+  public func hasAppointments(
+    atPoint point: CGPoint,
+    excludeAllDayAppointments: Bool = false
+    ) -> Bool {
     let scrollViewPoint = convert(point, to: scrollView)
     let timeViewPoint = scrollView.convert(scrollViewPoint, to: timeView)
-    return timeView.hasAppointments(atPoint: timeViewPoint)
+    return timeView.hasAppointments(
+      atPoint: timeViewPoint,
+      excludeAllDayAppointments: excludeAllDayAppointments
+    )
   }
 
   public func highlightTimePeriod(atPoint point: CGPoint) {

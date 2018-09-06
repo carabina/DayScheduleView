@@ -114,10 +114,18 @@ final class TimeView: UIView {
     return Float(hour + (difference < (metrics.hourHeight / 2) ? 0 : 0.5))
   }
 
-  func hasAppointments(atPoint point: CGPoint) -> Bool {
+  func hasAppointments(
+    atPoint point: CGPoint,
+    excludeAllDayAppointments: Bool = false
+    ) -> Bool {
     let time = self.time(forPoint: point)
     let timePeriod = Int(time * 2.0)
-    return !timePeriods[timePeriod].isEmpty
+    var appointments = timePeriods[timePeriod]
+    if excludeAllDayAppointments {
+      appointments = appointments.filter { !$0.appointment.isAllDay }
+    }
+
+    return !appointments.isEmpty
   }
 
   func appointment(atPoint point: CGPoint) -> DayScheduleViewAppointment? {

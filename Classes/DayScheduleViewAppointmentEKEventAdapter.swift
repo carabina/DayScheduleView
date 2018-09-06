@@ -54,4 +54,8 @@ public class DayScheduleViewAppointmentEKEventAdapter: DayScheduleViewAppointmen
   public var endDate: Date {
     return event.endDate!
   }
+
+  public var isAllDay: Bool {
+    return event.isAllDay
+  }
 }
