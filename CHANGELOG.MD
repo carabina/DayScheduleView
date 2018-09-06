@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - 2018-09-05
+
+### Changed
+
+* The `hasAppointments(atPoint:)` function on `DayScheduleView` was changed
+  to `hasAppointments(atPoint:excludeAllDayAppointments:)`. The additional
+  boolean parameter will allow users to specify whether or not to consider
+  all day appointments for conflicts. As an example of why you would want to
+  set this to `true` is holidays. Holidays will appear as all day appointments
+  and application users would not be able to schedule any Pomodoros on a
+  holiday. By setting this to `true`, applications can allow users to schedule
+  Pomodoros on a holiday.
+  
 ## [0.4.1] - 2018-09-03
 
 ### Fixed
