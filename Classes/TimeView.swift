@@ -37,7 +37,7 @@ final class TimeView: UIView {
     }
   }
 
-  var date = Date() {
+  var date: Date? {
     didSet {
       appointments = nil
     }
@@ -235,6 +235,10 @@ final class TimeView: UIView {
   }
 
   private func layoutAppointments() {
+    guard let date = date else {
+      return
+    }
+
     timePeriods = Array(repeating: [AppointmentLayer](), count: 48)
 
     let startOfDay = Calendar.current.startOfDay(for: date)
