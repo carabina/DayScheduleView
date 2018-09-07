@@ -39,7 +39,7 @@ final class TimeView: UIView {
 
   var date = Date() {
     didSet {
-      invalidate()
+      appointments = nil
     }
   }
 
