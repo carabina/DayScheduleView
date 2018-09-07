@@ -292,6 +292,7 @@ open class DayScheduleView: UIView {
       return
     }
 
+    log.debug("Querying appointments from data source for \(date)")
     operationQueue.async {
       let startDate = Calendar.current.startOfDay(for: date)
       let endDateComponents = DateComponents(day: 1)

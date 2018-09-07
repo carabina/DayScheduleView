@@ -249,6 +249,7 @@ final class TimeView: UIView {
       return
     }
 
+    Thread.callStackSymbols.forEach { log.verbose($0) }
     log.debug("date = \(date)")
     log.debug("appointmentLayers = \(appointmentLayers.count) appointments")
 
