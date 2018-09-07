@@ -33,13 +33,15 @@ final class TimeView: UIView {
 
   var appointments: [DayScheduleViewAppointment]? {
     didSet {
-      removeAppointments()
-      loadAppointments()
-      setNeedsDisplay()
+      invalidate()
     }
   }
 
-  var date = Date()
+  var date = Date() {
+    didSet {
+      invalidate()
+    }
+  }
 
   var log: DayScheduleViewLogger = DayScheduleViewNullLogger() {
     didSet {
@@ -311,5 +313,11 @@ final class TimeView: UIView {
     currentMinute = components.minute!
     setNeedsLayout()
     currentTimeLayer.setNeedsDisplay()
+  }
+
+  private func invalidate() {
+    removeAppointments()
+    loadAppointments()
+    setNeedsDisplay()
   }
 }
