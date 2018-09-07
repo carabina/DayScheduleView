@@ -45,6 +45,7 @@ open class DayScheduleView: UIView {
     }
     set {
       timeView.date = newValue
+      timeView.appointments = nil
       loadAppointments()
     }
   }
