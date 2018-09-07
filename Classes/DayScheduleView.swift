@@ -39,12 +39,13 @@ open class DayScheduleView: UIView {
   }
 
   /// The date that should be displayed in the schedule view.
-  public var date: Date {
+  public var date: Date? {
     get {
       return timeView.date
     }
     set {
       timeView.date = newValue
+      timeView.appointments = nil
       loadAppointments()
     }
   }
@@ -287,12 +288,13 @@ open class DayScheduleView: UIView {
   }
 
   private func loadAppointments() {
-    guard let dataSource = dataSource else {
+    guard let dataSource = dataSource, let date = date else {
       return
     }
 
+    log.debug("Querying appointments from data source for \(date)")
     operationQueue.async {
-      let startDate = Calendar.current.startOfDay(for: self.date)
+      let startDate = Calendar.current.startOfDay(for: date)
       let endDateComponents = DateComponents(day: 1)
       let endDate = Calendar.current.date(byAdding: endDateComponents, to: startDate)!
       let appointments = dataSource.dayScheduleView(self, appointmentsStarting: startDate, ending: endDate)

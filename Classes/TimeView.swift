@@ -26,27 +26,31 @@ final class TimeView: UIView {
   private let currentTimeLayer = CALayer()
   private let currentTimeLayerDelegate = CurrentTimeLayerDelegate()
 
-  private var appointmentLayers = [AppointmentLayer]()
+  private var appointmentLayers: [AppointmentLayer]?
   private var timePeriods = Array(repeating: [AppointmentLayer](), count: 48)
   private var currentMinute = -1
   private var timer: Timer?
 
   var appointments: [DayScheduleViewAppointment]? {
     didSet {
-      removeAppointments()
-      loadAppointments()
-      setNeedsDisplay()
+      invalidate()
     }
   }
 
-  var date = Date()
+  var date: Date? {
+    didSet {
+      appointments = nil
+    }
+  }
 
   var log: DayScheduleViewLogger = DayScheduleViewNullLogger() {
     didSet {
       timeLayerDelegate.log = log
       currentTimeLayerDelegate.log = log
-      for appointmentLayer in appointmentLayers {
-        appointmentLayer.log = log
+      if let appointmentLayers = appointmentLayers {
+        for appointmentLayer in appointmentLayers {
+          appointmentLayer.log = log
+        }
       }
     }
   }
@@ -129,6 +133,10 @@ final class TimeView: UIView {
   }
 
   func appointment(atPoint point: CGPoint) -> DayScheduleViewAppointment? {
+    guard let appointmentLayers = appointmentLayers else {
+      return nil
+    }
+
     for appointmentLayer in appointmentLayers {
       if !appointmentLayer.layer.frame.contains(point) {
         continue
@@ -190,11 +198,15 @@ final class TimeView: UIView {
   }
 
   private func removeAppointments() {
+    guard let appointmentLayers = appointmentLayers else {
+      return
+    }
+
     for appointmentLayer in appointmentLayers {
       appointmentLayer.layer.removeFromSuperlayer()
     }
 
-    appointmentLayers.removeAll()
+    self.appointmentLayers = nil
   }
 
   private func loadAppointments() {
@@ -205,7 +217,8 @@ final class TimeView: UIView {
     highlightLayer.removeFromSuperlayer()
     currentTimeLayer.removeFromSuperlayer()
 
-    self.appointmentLayers = appointments
+    var newAppointmentLayers = [AppointmentLayer]()
+    appointments
       .sorted { (l, r) -> Bool in
         if l.startDate < r.startDate {
           return true
@@ -216,16 +229,15 @@ final class TimeView: UIView {
         }
 
         return l.endDate > r.endDate
-      }
-      .map { (appointment) -> AppointmentLayer in
+      }.forEach({ appointment in
         let appointmentLayer =
           AppointmentLayer(settings: self.metrics, appointment: appointment)
         appointmentLayer.log = self.log
-        self.appointmentLayers.append(appointmentLayer)
+        newAppointmentLayers.append(appointmentLayer)
         appointmentLayer.layer.frame = layer.bounds
         layer.addSublayer(appointmentLayer.layer)
-        return appointmentLayer
-    }
+    })
+    self.appointmentLayers = newAppointmentLayers
 
     layer.addSublayer(highlightLayer)
     layer.addSublayer(currentTimeLayer)
@@ -233,22 +245,37 @@ final class TimeView: UIView {
   }
 
   private func layoutAppointments() {
+    guard let date = date, let appointmentLayers = appointmentLayers else {
+      return
+    }
+
+    Thread.callStackSymbols.forEach { log.verbose($0) }
+    log.debug("date = \(date)")
+    log.debug("appointmentLayers = \(appointmentLayers.count) appointments")
+
     timePeriods = Array(repeating: [AppointmentLayer](), count: 48)
 
     let startOfDay = Calendar.current.startOfDay(for: date)
+    log.debug("startOfDay = \(startOfDay)")
     let endDateComponents = DateComponents(day: 1, minute: -1)
     let endOfDay =
       Calendar.current.date(byAdding: endDateComponents, to: startOfDay)!
+    log.debug("endOfDay = \(endOfDay)")
     let totalWidth = bounds.width - metrics.hourSize.width
     let endTimeComponents = DateComponents(minute: -1)
 
     for appointmentLayer in appointmentLayers {
+      log.debug("appointment = \(appointmentLayer.appointment.title)")
+      log.debug("startDate = \(appointmentLayer.appointment.startDate)")
+      log.debug("endDate = \(appointmentLayer.appointment.endDate)")
       let startDate = appointmentLayer.appointment.startDate < startOfDay
         ? startOfDay
         : appointmentLayer.appointment.startDate
       let endDate = appointmentLayer.appointment.endDate > endOfDay
         ? endOfDay
         : appointmentLayer.appointment.endDate
+      log.debug("Modified startDate = \(startDate)")
+      log.debug("Modified endDate = \(endDate)")
       let startTime =
         Calendar.current.dateComponents([.hour, .minute], from: startDate)
       let endTime =
@@ -273,10 +300,15 @@ final class TimeView: UIView {
         height: height
       )
 
-      let indexEndTime = Calendar.current.date(byAdding: endTimeComponents, to: endDate)!
-      let indexEndTimeComponents = Calendar.current.dateComponents([.hour, .minute], from: indexEndTime)
+      let indexEndTime = Calendar.current.date(
+        byAdding: endTimeComponents,
+        to: endDate
+        )!
+      let indexEndTimeComponents =
+        Calendar.current.dateComponents([.hour, .minute], from: indexEndTime)
       let startIndex = (startTime.hour! * 2) + (startTime.minute! >= 30 ? 1 : 0)
-      let endIndex = (indexEndTimeComponents.hour! * 2) + (indexEndTimeComponents.minute! >= 30 ? 1 : 0)
+      let endIndex = (indexEndTimeComponents.hour! * 2) +
+        (indexEndTimeComponents.minute! >= 30 ? 1 : 0)
       for i in startIndex...endIndex {
         timePeriods[i].append(appointmentLayer)
       }
@@ -311,5 +343,11 @@ final class TimeView: UIView {
     currentMinute = components.minute!
     setNeedsLayout()
     currentTimeLayer.setNeedsDisplay()
+  }
+
+  private func invalidate() {
+    removeAppointments()
+    loadAppointments()
+    setNeedsDisplay()
   }
 }

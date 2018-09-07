@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.6.0] - 2018-09-07
+
+### Changed
+
+* I changed the `DayScheduleView.date` property to be optional and it no
+  longer defaults to *today*. It is required that the `date` property is set
+  when initializing `DayScheduleView`.
+
+### Fixed
+
+* I fixed a layout error in `DayScheduleView` where the `date` property is
+  set to an earlier date than the appointments that are currently in memory.
+  The layout algorithm was failing due to a reverse interval error.
+  
 ## [0.5.0] - 2018-09-05
 
 ### Changed
