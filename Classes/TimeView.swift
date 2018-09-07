@@ -249,22 +249,32 @@ final class TimeView: UIView {
       return
     }
 
+    log.debug("date = \(date)")
+    log.debug("appointmentLayers = \(appointmentLayers.count) appointments")
+
     timePeriods = Array(repeating: [AppointmentLayer](), count: 48)
 
     let startOfDay = Calendar.current.startOfDay(for: date)
+    log.debug("startOfDay = \(startOfDay)")
     let endDateComponents = DateComponents(day: 1, minute: -1)
     let endOfDay =
       Calendar.current.date(byAdding: endDateComponents, to: startOfDay)!
+    log.debug("endOfDay = \(endOfDay)")
     let totalWidth = bounds.width - metrics.hourSize.width
     let endTimeComponents = DateComponents(minute: -1)
 
     for appointmentLayer in appointmentLayers {
+      log.debug("appointment = \(appointmentLayer.appointment.title)")
+      log.debug("startDate = \(appointmentLayer.appointment.startDate)")
+      log.debug("endDate = \(appointmentLayer.appointment.endDate)")
       let startDate = appointmentLayer.appointment.startDate < startOfDay
         ? startOfDay
         : appointmentLayer.appointment.startDate
       let endDate = appointmentLayer.appointment.endDate > endOfDay
         ? endOfDay
         : appointmentLayer.appointment.endDate
+      log.debug("Modified startDate = \(startDate)")
+      log.debug("Modified endDate = \(endDate)")
       let startTime =
         Calendar.current.dateComponents([.hour, .minute], from: startDate)
       let endTime =
