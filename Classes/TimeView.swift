@@ -336,7 +336,7 @@ final class TimeView: UIView {
   }
 
   private func updateCurrentTime() {
-    guard isToday(date) else {
+    guard let date = date, isToday(date) else {
       currentTimeLayer.isHidden = true
       return
     }
