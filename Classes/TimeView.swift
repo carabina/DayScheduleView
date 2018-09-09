@@ -40,6 +40,7 @@ final class TimeView: UIView {
   var date: Date? {
     didSet {
       appointments = nil
+      currentTimeLayer.isHidden = nil != date && isToday(date!)
     }
   }
 
@@ -335,11 +336,18 @@ final class TimeView: UIView {
   }
 
   private func updateCurrentTime() {
-    let components = Calendar.current.dateComponents([.minute], from: Date())
+    let now = Date()
+    guard isToday(now) else {
+      currentTimeLayer.isHidden = true
+      return
+    }
+
+    let components = Calendar.current.dateComponents([.minute], from: now)
     guard components.minute! != currentMinute else {
       return
     }
 
+    currentTimeLayer.isHidden = false
     currentMinute = components.minute!
     setNeedsLayout()
     currentTimeLayer.setNeedsDisplay()
@@ -349,5 +357,14 @@ final class TimeView: UIView {
     removeAppointments()
     loadAppointments()
     setNeedsDisplay()
+  }
+
+  private func isToday(_ date: Date) -> Bool {
+    let now = Date()
+    let startOfDay = Calendar.current.startOfDay(for: now)
+    let endOfDayComponents = DateComponents(day: 1)
+    let endOfDay =
+      Calendar.current.date(byAdding: endOfDayComponents, to: startOfDay)!
+    return date >= startOfDay && date < endOfDay
   }
 }
