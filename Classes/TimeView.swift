@@ -336,13 +336,12 @@ final class TimeView: UIView {
   }
 
   private func updateCurrentTime() {
-    let now = Date()
-    guard isToday(now) else {
+    guard isToday(date) else {
       currentTimeLayer.isHidden = true
       return
     }
 
-    let components = Calendar.current.dateComponents([.minute], from: now)
+    let components = Calendar.current.dateComponents([.minute], from: Date())
     guard components.minute! != currentMinute else {
       return
     }
